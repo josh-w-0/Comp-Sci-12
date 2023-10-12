@@ -239,7 +239,7 @@ public class InputSums extends javax.swing.JFrame {
     }//GEN-LAST:event_sumEvenActionPerformed
 
     private void sumAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sumAllActionPerformed
-        
+
     }//GEN-LAST:event_sumAllActionPerformed
 
     private void outputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outputActionPerformed
