@@ -23,12 +23,13 @@ public class InputSums extends javax.swing.JFrame {
       }  
     }
     int[] numList = new int[20];
-    int currentIndex = 0;
+    int currentIndex = 0, sum;
+    boolean numInArray = false;
     String input;
     public InputSums() {
         initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -95,6 +96,11 @@ public class InputSums extends javax.swing.JFrame {
         });
 
         sumOdd.setText("sumOdd");
+        sumOdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sumOddActionPerformed(evt);
+            }
+        });
 
         output.setEditable(false);
         output.addActionListener(new java.awt.event.ActionListener() {
@@ -122,19 +128,6 @@ public class InputSums extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(sumAll)
-                                .addGap(82, 82, 82))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(sumEven)
-                                    .addComponent(sumOdd)
-                                    .addComponent(List))
-                                .addContainerGap())))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(output, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -145,7 +138,25 @@ public class InputSums extends javax.swing.JFrame {
                                 .addComponent(Add)
                                 .addGap(18, 18, 18)
                                 .addComponent(Remove)))
-                        .addContainerGap(15, Short.MAX_VALUE))))
+                        .addContainerGap(15, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(List)
+                                .addGap(61, 61, 61))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(36, 36, 36)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(sumOdd)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(sumAll)
+                                            .addComponent(sumEven))
+                                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -163,19 +174,17 @@ public class InputSums extends javax.swing.JFrame {
                     .addComponent(Add)
                     .addComponent(Remove))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(sumAll)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(List)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(9, 9, 9)
+                        .addComponent(sumAll)
+                        .addGap(18, 18, 18)
                         .addComponent(sumEven)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(sumOdd)
-                        .addGap(28, 28, 28)))
+                        .addGap(18, 18, 18)
+                        .addComponent(sumOdd))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(output, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
@@ -193,6 +202,14 @@ public class InputSums extends javax.swing.JFrame {
             {
                 numList[currentIndex] = Integer.parseInt(input);
                 currentIndex++;
+                intList.setText("");
+                for (int i = 0; i<20; i++)
+                    {
+                        if (numList[i] != 0)
+                        {
+                            intList.append(numList[i] + "\n");
+                        }
+                    }
             }
             else
                 output.setText("You entered an negative number or 0. Enter a positive integer.");
@@ -221,9 +238,21 @@ public class InputSums extends javax.swing.JFrame {
                            i++;
                         }
                         numList[19] = 0;
+                        numInArray = true;
                         break;
                     }
                 }
+                if (numInArray == false)
+                    output.setText("Number does not exist in array.");
+                numInArray = false;
+                intList.setText("");
+                for (int i = 0; i<20; i++)
+                    {
+                        if (numList[i] != 0)
+                        {
+                            intList.append(numList[i] + "\n");
+                        }
+                    }
             }
             else
                 output.setText("You entered an negative number or 0. Enter a positive integer.");
@@ -235,11 +264,20 @@ public class InputSums extends javax.swing.JFrame {
     }//GEN-LAST:event_RemoveActionPerformed
 
     private void sumEvenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sumEvenActionPerformed
-
+        sum = 0;
+        for (int i=0;i<20;i++)
+            if (numList[i]%2 == 0)
+            {
+                sum += numList[i];
+            }
+        output.setText("The sum of all even numbers in the list is " + sum);
     }//GEN-LAST:event_sumEvenActionPerformed
 
     private void sumAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sumAllActionPerformed
-
+        sum = 0;
+        for (int i=0;i<20;i++)
+            sum += numList[i];
+        output.setText("The sum of all numbers in the list is " + sum);
     }//GEN-LAST:event_sumAllActionPerformed
 
     private void outputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outputActionPerformed
@@ -247,7 +285,7 @@ public class InputSums extends javax.swing.JFrame {
     }//GEN-LAST:event_outputActionPerformed
 
     private void intInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_intInputActionPerformed
-        // TODO add your handling code here:
+     
     }//GEN-LAST:event_intInputActionPerformed
 
     private void ListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListActionPerformed
@@ -260,6 +298,16 @@ public class InputSums extends javax.swing.JFrame {
                 }
             }
     }//GEN-LAST:event_ListActionPerformed
+
+    private void sumOddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sumOddActionPerformed
+        sum = 0;
+        for (int i=0;i<20;i++)
+            if (numList[i]%2 == 1)
+            {
+                sum += numList[i];
+            }
+        output.setText("The sum of all odd numbers in the list is " + sum);
+    }//GEN-LAST:event_sumOddActionPerformed
 
     /**
      * @param args the command line arguments
