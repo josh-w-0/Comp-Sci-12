@@ -235,7 +235,7 @@ public class InputSums extends javax.swing.JFrame {
     }//GEN-LAST:event_RemoveActionPerformed
 
     private void sumEvenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sumEvenActionPerformed
-        System.out.println("HelloWord");
+
     }//GEN-LAST:event_sumEvenActionPerformed
 
     private void sumAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sumAllActionPerformed
