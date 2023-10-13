@@ -210,6 +210,7 @@ public class InputSums extends javax.swing.JFrame {
                             intList.append(numList[i] + "\n");
                         }
                     }
+                output.setText("Added");
             }
             else
                 output.setText("You entered an negative number or 0. Enter a positive integer.");
@@ -239,6 +240,7 @@ public class InputSums extends javax.swing.JFrame {
                         }
                         numList[19] = 0;
                         numInArray = true;
+                        output.setText("Removed");
                         break;
                     }
                 }
@@ -297,6 +299,7 @@ public class InputSums extends javax.swing.JFrame {
                     intList.append(numList[i] + "\n");
                 }
             }
+        output.setText("Listed");
     }//GEN-LAST:event_ListActionPerformed
 
     private void sumOddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sumOddActionPerformed
