@@ -53,6 +53,7 @@ public class InputSums extends javax.swing.JFrame {
         List = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Integer Sums");
 
         Add.setText("Add");
         Add.addActionListener(new java.awt.event.ActionListener() {
