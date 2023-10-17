@@ -209,6 +209,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Student Average"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="studentAvgActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="list">
       <Properties>
