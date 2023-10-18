@@ -32,7 +32,8 @@ public class StudentGradesProgram extends javax.swing.JFrame {
     }
     DecimalFormat df = new DecimalFormat("#0.00");
     String[][] students = new String[30][6];
-    int num = 0, avg;
+    int num = 0, i;
+    double avg;
     String[] testValue = new String[6];
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -53,13 +54,13 @@ public class StudentGradesProgram extends javax.swing.JFrame {
         test4 = new javax.swing.JTextField();
         add = new javax.swing.JButton();
         studentAvg = new javax.swing.JButton();
-        list = new javax.swing.JButton();
         courseAvg = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         info = new javax.swing.JTextArea();
         output = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Student Grades Program");
 
         FirstName.setText("First Name:");
 
@@ -109,14 +110,12 @@ public class StudentGradesProgram extends javax.swing.JFrame {
             }
         });
 
-        list.setText("List");
-        list.addActionListener(new java.awt.event.ActionListener() {
+        courseAvg.setText("Course Averages");
+        courseAvg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listActionPerformed(evt);
+                courseAvgActionPerformed(evt);
             }
         });
-
-        courseAvg.setText("Course Averages");
 
         info.setEditable(false);
         info.setColumns(20);
@@ -163,9 +162,7 @@ public class StudentGradesProgram extends javax.swing.JFrame {
                                     .addComponent(test2)
                                     .addComponent(test1))
                                 .addGap(28, 28, 28)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(add, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(list, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addComponent(add)
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(studentAvg)
@@ -204,7 +201,6 @@ public class StudentGradesProgram extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Test2)
                     .addComponent(test2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(list)
                     .addComponent(courseAvg))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -251,13 +247,14 @@ public class StudentGradesProgram extends javax.swing.JFrame {
                 output.setText("The class is at capacity.");
                 break;
             }
-            for (int i = 0; i<=5; i++)
+            for (i = 0; i<=5; i++)
             {
                 if (testValue[i].equals(""))
                 {
                    output.setText("You left a required piece of information empty.");
                    break main;
                 }
+            }
             for (i = 0; i<num; i++)
             {
                 if (testValue[0].equals(students[i][0]))
@@ -291,40 +288,35 @@ public class StudentGradesProgram extends javax.swing.JFrame {
             students[num][5] = test4.getText();
 
             info.append((num+1) + ". ");
-            for (int j = 0; j<=5; j++)
+            for (int j = 0; j<=1; j++)
             {
                 info.append(students[num][j] + " ");
             }
+            for (int j = 2; j<=5; j++)
+            {
+                info.append(students[num][j] + "% ");
+            }
             info.append("\n");
             num++;
-            break main;
-        }
+            break;
         }
     }//GEN-LAST:event_addActionPerformed
-
-    private void listActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listActionPerformed
-        info.setText("");
-        for (int i = 0; i<num; i++)
-        {
-            for (int j = 0; j<=5; j++)
-                info.append(students[i][j] + "\t");
-            info.append("\n");
-        }
-    }//GEN-LAST:event_listActionPerformed
 
     private void outputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outputActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_outputActionPerformed
 
     private void studentAvgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentAvgActionPerformed
+        boolean isStudent = false;
         testValue[0] = firstName.getText();
         testValue[1] = lastName.getText();
-        for (int i = 0; i<num; i++)
+        for (i = 0; i<num; i++)
             {
                 if (testValue[0].equals(students[i][0]))
                 {
                     if (testValue[1].equals(students[i][1]))
                     {
+                        isStudent = true;
                         avg = 0;
                          for (int j = 2; j<=5; j++)
                          {
@@ -335,8 +327,25 @@ public class StudentGradesProgram extends javax.swing.JFrame {
                         break;
                     }
                 }
-            }       
+            }  
+        if (!isStudent)
+        {
+            output.setText("This student does not exist.");
+        }
     }//GEN-LAST:event_studentAvgActionPerformed
+
+    private void courseAvgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_courseAvgActionPerformed
+        avg = 0;
+        for (i = 0; i<num; i++)
+        {
+            for (int j = 2; j<=5; j++)
+                {
+                    avg += Double.parseDouble(students[i][j]);
+                } 
+        }
+        avg/=(num*4);
+        output.setText("Course average is " + df.format(avg) + "%");
+    }//GEN-LAST:event_courseAvgActionPerformed
 
     /**
      * @param args the command line arguments
@@ -386,7 +395,6 @@ public class StudentGradesProgram extends javax.swing.JFrame {
     private javax.swing.JTextArea info;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField lastName;
-    private javax.swing.JButton list;
     private javax.swing.JTextField output;
     private javax.swing.JButton studentAvg;
     private javax.swing.JTextField test1;
