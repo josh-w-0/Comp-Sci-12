@@ -294,7 +294,7 @@ public class StudentGradesProgram extends javax.swing.JFrame {
             }
             for (int j = 2; j<=5; j++)
             {
-                info.append(students[num][j] + "% ");
+                info.append(df.format(Double.parseDouble(students[num][j])) + "% ");
             }
             info.append("\n");
             num++;
