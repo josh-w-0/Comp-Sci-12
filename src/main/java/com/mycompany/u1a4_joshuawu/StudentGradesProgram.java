@@ -30,7 +30,7 @@ public class StudentGradesProgram extends javax.swing.JFrame {
         return false;  
       }  
     }
-    DecimalFormat df = new DecimalFormat("#0.00");
+    DecimalFormat df = new DecimalFormat("#0.##");
     String[][] students = new String[30][6];
     int num = 0, i;
     double avg;
