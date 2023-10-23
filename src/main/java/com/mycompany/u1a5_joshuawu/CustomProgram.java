@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.u1a5_joshuawu;
-
 /**
  *
  * @author 335181541
@@ -26,21 +25,160 @@ public class CustomProgram extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        seven = new javax.swing.JButton();
+        eight = new javax.swing.JButton();
+        nine = new javax.swing.JButton();
+        four = new javax.swing.JButton();
+        five = new javax.swing.JButton();
+        six = new javax.swing.JButton();
+        one = new javax.swing.JButton();
+        two = new javax.swing.JButton();
+        three = new javax.swing.JButton();
+        zero = new javax.swing.JButton();
+        decimal = new javax.swing.JButton();
+        plus = new javax.swing.JButton();
+        output = new javax.swing.JFormattedTextField();
+        divide = new javax.swing.JButton();
+        times = new javax.swing.JButton();
+        minus = new javax.swing.JButton();
+        equals = new javax.swing.JButton();
+        clear = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        seven.setText("7");
+        seven.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sevenActionPerformed(evt);
+            }
+        });
+
+        eight.setText("8");
+
+        nine.setText("9");
+
+        four.setText("4");
+
+        five.setText("5");
+        five.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fiveActionPerformed(evt);
+            }
+        });
+
+        six.setText("6");
+
+        one.setText("1");
+
+        two.setText("2");
+
+        three.setText("3");
+
+        zero.setText("0");
+
+        decimal.setText(".");
+
+        plus.setText("+");
+
+        output.setEditable(false);
+
+        divide.setText("÷");
+
+        times.setText("×");
+
+        minus.setText("-");
+
+        equals.setText("=");
+
+        clear.setText("Clear");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(57, 57, 57)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(four)
+                        .addGap(18, 18, 18)
+                        .addComponent(five)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(six)
+                        .addGap(18, 18, 18)
+                        .addComponent(times))
+                    .addComponent(output, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(seven)
+                        .addGap(18, 18, 18)
+                        .addComponent(eight)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(nine)
+                        .addGap(18, 18, 18)
+                        .addComponent(divide)
+                        .addGap(28, 28, 28)
+                        .addComponent(clear))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(zero)
+                        .addGap(18, 18, 18)
+                        .addComponent(decimal)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(equals)
+                        .addGap(18, 18, 18)
+                        .addComponent(plus))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(one)
+                        .addGap(18, 18, 18)
+                        .addComponent(two)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(three)
+                        .addGap(18, 18, 18)
+                        .addComponent(minus)))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addComponent(output, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(seven)
+                    .addComponent(eight)
+                    .addComponent(nine)
+                    .addComponent(divide)
+                    .addComponent(clear))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(four)
+                    .addComponent(five)
+                    .addComponent(six)
+                    .addComponent(times))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(one)
+                    .addComponent(two)
+                    .addComponent(three)
+                    .addComponent(minus))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(zero)
+                    .addComponent(decimal)
+                    .addComponent(plus)
+                    .addComponent(equals))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void sevenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sevenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sevenActionPerformed
+
+    private void fiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fiveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fiveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +216,23 @@ public class CustomProgram extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton clear;
+    private javax.swing.JButton decimal;
+    private javax.swing.JButton divide;
+    private javax.swing.JButton eight;
+    private javax.swing.JButton equals;
+    private javax.swing.JButton five;
+    private javax.swing.JButton four;
+    private javax.swing.JButton minus;
+    private javax.swing.JButton nine;
+    private javax.swing.JButton one;
+    private javax.swing.JFormattedTextField output;
+    private javax.swing.JButton plus;
+    private javax.swing.JButton seven;
+    private javax.swing.JButton six;
+    private javax.swing.JButton three;
+    private javax.swing.JButton times;
+    private javax.swing.JButton two;
+    private javax.swing.JButton zero;
     // End of variables declaration//GEN-END:variables
 }
