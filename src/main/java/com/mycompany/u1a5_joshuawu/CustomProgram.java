@@ -26,6 +26,7 @@ public class CustomProgram extends javax.swing.JFrame {
     public void errorMessage(){ //displays error when input is not in number format (ex. 4..7)
         output.setText("Invalid input. Please make sure to enter the number correctly.");
         screen = "";
+        anotherOperation = true;
     }
     String operation = ""; //parses operation
     String screen = ""; //declares variables for output
