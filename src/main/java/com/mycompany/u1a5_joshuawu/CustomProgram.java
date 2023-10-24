@@ -15,13 +15,13 @@ public class CustomProgram extends javax.swing.JFrame {
     public CustomProgram() {
         initComponents();
     }
-     public static boolean isNumeric(String str) { 
-      try {  
+    public static boolean isNumeric(String str) { 
+     try {  
         Double i = Double.parseDouble(str);  
         return true;
-      } catch(NumberFormatException e){  
+     } catch(NumberFormatException e){  
         return false;  
-      }  
+     }  
     }
     public void errorMessage(){ //displays error when input is not in number format (ex. 4..7)
         output.setText("Invalid input. Please make sure to enter the number correctly.");
@@ -30,7 +30,8 @@ public class CustomProgram extends javax.swing.JFrame {
     String operation = ""; //parses operation
     String screen = ""; //declares variables for output
     double num;
-    public void add( ){ //If an operator is selected, deselects every other operator button, check if input is a number
+    boolean anotherOperation = false;
+    public void add( ){ //If an operator is selected, deselects every other operator button, then checks if input is a number
     minus.setSelected(false);
     divide.setSelected(false);
     times.setSelected(false);
@@ -58,7 +59,7 @@ public class CustomProgram extends javax.swing.JFrame {
     if (isNumeric(screen)) num = Double.parseDouble(screen);
     else errorMessage(); 
     }
-    public void clearScreen(){ //checks is operator is selected, then clears screen if true, then records operation
+    public void clearScreen(){ //checks if operator is selected, then clears screen if true, then records operation
     if (plus.isSelected()) {
         screen = "";
         plus.setSelected(false);
@@ -75,6 +76,11 @@ public class CustomProgram extends javax.swing.JFrame {
         screen = "";
         divide.setSelected(false);
         operation = "divide";}
+    if (anotherOperation) //resets output if equals button was selected before
+    {
+        anotherOperation = false;
+        screen = "";
+    }
     }
     
     
@@ -435,6 +441,7 @@ public class CustomProgram extends javax.swing.JFrame {
                 num += Double.parseDouble(screen);
                 screen = String.valueOf(num);
                 output.setText(screen);
+                anotherOperation = true;
                 break;
             }
             case "minus":
@@ -442,6 +449,7 @@ public class CustomProgram extends javax.swing.JFrame {
                 num -= Double.parseDouble(screen);
                 screen = String.valueOf(num);
                 output.setText(screen);
+                anotherOperation = true;
                 break;
             }
             case "divide":
@@ -449,6 +457,7 @@ public class CustomProgram extends javax.swing.JFrame {
                 num /= Double.parseDouble(screen);
                 screen = String.valueOf(num);
                 output.setText(screen);
+                anotherOperation = true;
                 break;
             }
             case "times":
@@ -456,6 +465,7 @@ public class CustomProgram extends javax.swing.JFrame {
                 num *= Double.parseDouble(screen);
                 screen = String.valueOf(num);
                 output.setText(screen);
+                anotherOperation = true;
                 break;
             }
             default:
@@ -465,8 +475,10 @@ public class CustomProgram extends javax.swing.JFrame {
                 break;
             }                                
         }
-            operation = "";
+            
         }
+        else errorMessage();
+        operation = "";
     }//GEN-LAST:event_equalsActionPerformed
 
     private void clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearActionPerformed
