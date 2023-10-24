@@ -15,7 +15,69 @@ public class CustomProgram extends javax.swing.JFrame {
     public CustomProgram() {
         initComponents();
     }
-
+     public static boolean isNumeric(String str) { 
+      try {  
+        Double i = Double.parseDouble(str);  
+        return true;
+      } catch(NumberFormatException e){  
+        return false;  
+      }  
+    }
+    public void errorMessage(){ //displays error when input is not in number format (ex. 4..7)
+        output.setText("Invalid input. Please make sure to enter the number correctly.");
+        screen = "";
+    }
+    String operation = ""; //parses operation
+    String screen = ""; //declares variables for output
+    double num;
+    public void add( ){ //If an operator is selected, deselects every other operator button, check if input is a number
+    minus.setSelected(false);
+    divide.setSelected(false);
+    times.setSelected(false);
+    if (isNumeric(screen)) num = Double.parseDouble(screen);
+    else errorMessage();
+    }
+    public void minus( ){ 
+    plus.setSelected(false);
+    divide.setSelected(false);
+    times.setSelected(false);
+    if (isNumeric(screen)) num = Double.parseDouble(screen);
+    else errorMessage();
+    }
+    public void times( ){ 
+    plus.setSelected(false);
+    divide.setSelected(false);
+    minus.setSelected(false);
+    if (isNumeric(screen)) num = Double.parseDouble(screen);
+    else errorMessage();
+    }
+    public void divide( ){ 
+    minus.setSelected(false);
+    plus.setSelected(false);
+    times.setSelected(false);
+    if (isNumeric(screen)) num = Double.parseDouble(screen);
+    else errorMessage(); 
+    }
+    public void clearScreen(){ //checks is operator is selected, then clears screen if true, then records operation
+    if (plus.isSelected()) {
+        screen = "";
+        plus.setSelected(false);
+        operation = "add";}
+    else if (times.isSelected()) {
+        screen = "";
+        times.setSelected(false);
+        operation = "times";}
+    else if (minus.isSelected()) {
+        screen = "";
+        minus.setSelected(false);
+        operation = "minus";}
+    else if (divide.isSelected()) {
+        screen = "";
+        divide.setSelected(false);
+        operation = "divide";}
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -25,6 +87,7 @@ public class CustomProgram extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        specifyDecimals = new javax.swing.ButtonGroup();
         seven = new javax.swing.JButton();
         eight = new javax.swing.JButton();
         nine = new javax.swing.JButton();
@@ -36,15 +99,19 @@ public class CustomProgram extends javax.swing.JFrame {
         three = new javax.swing.JButton();
         zero = new javax.swing.JButton();
         decimal = new javax.swing.JButton();
-        plus = new javax.swing.JButton();
         output = new javax.swing.JFormattedTextField();
-        divide = new javax.swing.JButton();
-        times = new javax.swing.JButton();
-        minus = new javax.swing.JButton();
         equals = new javax.swing.JButton();
         clear = new javax.swing.JButton();
+        divide = new javax.swing.JToggleButton();
+        times = new javax.swing.JToggleButton();
+        plus = new javax.swing.JToggleButton();
+        minus = new javax.swing.JToggleButton();
+        unlimdec = new javax.swing.JRadioButton();
+        nodec = new javax.swing.JRadioButton();
+        threedec = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Calculator");
 
         seven.setText("7");
         seven.addActionListener(new java.awt.event.ActionListener() {
@@ -54,10 +121,25 @@ public class CustomProgram extends javax.swing.JFrame {
         });
 
         eight.setText("8");
+        eight.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eightActionPerformed(evt);
+            }
+        });
 
         nine.setText("9");
+        nine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nineActionPerformed(evt);
+            }
+        });
 
         four.setText("4");
+        four.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fourActionPerformed(evt);
+            }
+        });
 
         five.setText("5");
         five.addActionListener(new java.awt.event.ActionListener() {
@@ -67,30 +149,100 @@ public class CustomProgram extends javax.swing.JFrame {
         });
 
         six.setText("6");
+        six.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sixActionPerformed(evt);
+            }
+        });
 
         one.setText("1");
+        one.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                oneActionPerformed(evt);
+            }
+        });
 
         two.setText("2");
+        two.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                twoActionPerformed(evt);
+            }
+        });
 
         three.setText("3");
+        three.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                threeActionPerformed(evt);
+            }
+        });
 
         zero.setText("0");
+        zero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                zeroActionPerformed(evt);
+            }
+        });
 
         decimal.setText(".");
-
-        plus.setText("+");
+        decimal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decimalActionPerformed(evt);
+            }
+        });
 
         output.setEditable(false);
 
-        divide.setText("÷");
-
-        times.setText("×");
-
-        minus.setText("-");
-
         equals.setText("=");
+        equals.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                equalsActionPerformed(evt);
+            }
+        });
 
         clear.setText("Clear");
+        clear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearActionPerformed(evt);
+            }
+        });
+
+        divide.setText("÷");
+        divide.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                divideActionPerformed(evt);
+            }
+        });
+
+        times.setText("×");
+        times.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                timesActionPerformed(evt);
+            }
+        });
+
+        plus.setText("+");
+        plus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                plusActionPerformed(evt);
+            }
+        });
+
+        minus.setText("-");
+        minus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                minusActionPerformed(evt);
+            }
+        });
+
+        specifyDecimals.add(unlimdec);
+        unlimdec.setSelected(true);
+        unlimdec.setText("Unlimited Decimals");
+
+        specifyDecimals.add(nodec);
+        nodec.setText("No Decimals");
+
+        specifyDecimals.add(threedec);
+        threedec.setText("Three Decimals");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -100,41 +252,54 @@ public class CustomProgram extends javax.swing.JFrame {
                 .addGap(57, 57, 57)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(four)
-                        .addGap(18, 18, 18)
-                        .addComponent(five)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(six)
-                        .addGap(18, 18, 18)
-                        .addComponent(times))
-                    .addComponent(output, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(zero, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(one))
+                                    .addComponent(four))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(five)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(six)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(times))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(decimal)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(equals))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(two)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(three)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(plus)
+                                            .addComponent(minus)))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(seven)
+                                .addGap(12, 12, 12)
+                                .addComponent(eight)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(nine)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(divide)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(unlimdec)
+                            .addComponent(nodec)
+                            .addComponent(threedec)
+                            .addComponent(clear))
+                        .addGap(13, 13, 13))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(seven)
-                        .addGap(18, 18, 18)
-                        .addComponent(eight)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(nine)
-                        .addGap(18, 18, 18)
-                        .addComponent(divide)
-                        .addGap(28, 28, 28)
-                        .addComponent(clear))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(zero)
-                        .addGap(18, 18, 18)
-                        .addComponent(decimal)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(equals)
-                        .addGap(18, 18, 18)
-                        .addComponent(plus))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(one)
-                        .addGap(18, 18, 18)
-                        .addComponent(two)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(three)
-                        .addGap(18, 18, 18)
-                        .addComponent(minus)))
-                .addContainerGap(52, Short.MAX_VALUE))
+                        .addComponent(output, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,39 +311,168 @@ public class CustomProgram extends javax.swing.JFrame {
                     .addComponent(seven)
                     .addComponent(eight)
                     .addComponent(nine)
-                    .addComponent(divide)
-                    .addComponent(clear))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(four)
-                    .addComponent(five)
-                    .addComponent(six)
-                    .addComponent(times))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(one)
-                    .addComponent(two)
-                    .addComponent(three)
-                    .addComponent(minus))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(zero)
-                    .addComponent(decimal)
-                    .addComponent(plus)
-                    .addComponent(equals))
-                .addContainerGap(74, Short.MAX_VALUE))
+                    .addComponent(clear)
+                    .addComponent(divide))
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(nodec)
+                        .addGap(14, 14, 14)
+                        .addComponent(unlimdec)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(threedec))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(four)
+                            .addComponent(five)
+                            .addComponent(six)
+                            .addComponent(times))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(one)
+                            .addComponent(two)
+                            .addComponent(three)
+                            .addComponent(minus))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(zero)
+                            .addComponent(decimal)
+                            .addComponent(equals)
+                            .addComponent(plus))))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void sevenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sevenActionPerformed
-        // TODO add your handling code here:
+        clearScreen();
+        screen = screen.concat("7");
+        output.setText(screen);
     }//GEN-LAST:event_sevenActionPerformed
 
     private void fiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fiveActionPerformed
-        // TODO add your handling code here:
+        clearScreen();
+        screen = screen.concat("5");
+        output.setText(screen);
     }//GEN-LAST:event_fiveActionPerformed
+
+    private void plusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plusActionPerformed
+        if (plus.isSelected()) add(); //calls method for deselecting other operators, for every toggle button
+    }//GEN-LAST:event_plusActionPerformed
+
+    private void divideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_divideActionPerformed
+        if (divide.isSelected()) divide();
+    }//GEN-LAST:event_divideActionPerformed
+
+    private void minusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minusActionPerformed
+        if (minus.isSelected()) minus();
+    }//GEN-LAST:event_minusActionPerformed
+
+    private void timesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timesActionPerformed
+        if (times.isSelected()) times();
+    }//GEN-LAST:event_timesActionPerformed
+
+    private void zeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zeroActionPerformed
+        clearScreen();
+        screen = screen.concat("0"); //adds number to the screen
+        output.setText(screen);
+    }//GEN-LAST:event_zeroActionPerformed
+
+    private void oneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oneActionPerformed
+        clearScreen();
+        screen = screen.concat("1");
+        output.setText(screen);
+    }//GEN-LAST:event_oneActionPerformed
+
+    private void twoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_twoActionPerformed
+        clearScreen();
+        screen = screen.concat("2");
+        output.setText(screen);
+    }//GEN-LAST:event_twoActionPerformed
+
+    private void threeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_threeActionPerformed
+        clearScreen();
+        screen = screen.concat("3");
+        output.setText(screen);
+    }//GEN-LAST:event_threeActionPerformed
+
+    private void fourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fourActionPerformed
+        clearScreen();
+        screen = screen.concat("4");
+        output.setText(screen);
+    }//GEN-LAST:event_fourActionPerformed
+
+    private void sixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sixActionPerformed
+        clearScreen();
+        screen = screen.concat("6");
+        output.setText(screen);
+    }//GEN-LAST:event_sixActionPerformed
+
+    private void eightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eightActionPerformed
+        clearScreen();
+        screen = screen.concat("8");
+        output.setText(screen);
+    }//GEN-LAST:event_eightActionPerformed
+
+    private void nineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nineActionPerformed
+        clearScreen();
+        screen = screen.concat("9");
+        output.setText(screen);
+    }//GEN-LAST:event_nineActionPerformed
+
+    private void decimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decimalActionPerformed
+        clearScreen();
+        screen = screen.concat(".");
+        output.setText(screen);
+    }//GEN-LAST:event_decimalActionPerformed
+
+    private void equalsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_equalsActionPerformed
+        if (isNumeric(screen)) {
+            switch (operation){
+            case "add":
+            {
+                num += Double.parseDouble(screen);
+                screen = String.valueOf(num);
+                output.setText(screen);
+                break;
+            }
+            case "minus":
+            {
+                num -= Double.parseDouble(screen);
+                screen = String.valueOf(num);
+                output.setText(screen);
+                break;
+            }
+            case "divide":
+            {
+                num /= Double.parseDouble(screen);
+                screen = String.valueOf(num);
+                output.setText(screen);
+                break;
+            }
+            case "times":
+            {
+                num *= Double.parseDouble(screen);
+                screen = String.valueOf(num);
+                output.setText(screen);
+                break;
+            }
+            default:
+            {
+                output.setText("You did not specify an operation.");
+                screen = "";
+                break;
+            }                                
+        }
+            operation = "";
+        }
+    }//GEN-LAST:event_equalsActionPerformed
+
+    private void clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearActionPerformed
+        screen = ""; //clears output
+        output.setText("");
+    }//GEN-LAST:event_clearActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,21 +512,25 @@ public class CustomProgram extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clear;
     private javax.swing.JButton decimal;
-    private javax.swing.JButton divide;
+    private javax.swing.JToggleButton divide;
     private javax.swing.JButton eight;
     private javax.swing.JButton equals;
     private javax.swing.JButton five;
     private javax.swing.JButton four;
-    private javax.swing.JButton minus;
+    private javax.swing.JToggleButton minus;
     private javax.swing.JButton nine;
+    private javax.swing.JRadioButton nodec;
     private javax.swing.JButton one;
     private javax.swing.JFormattedTextField output;
-    private javax.swing.JButton plus;
+    private javax.swing.JToggleButton plus;
     private javax.swing.JButton seven;
     private javax.swing.JButton six;
+    private javax.swing.ButtonGroup specifyDecimals;
     private javax.swing.JButton three;
-    private javax.swing.JButton times;
+    private javax.swing.JRadioButton threedec;
+    private javax.swing.JToggleButton times;
     private javax.swing.JButton two;
+    private javax.swing.JRadioButton unlimdec;
     private javax.swing.JButton zero;
     // End of variables declaration//GEN-END:variables
 }
