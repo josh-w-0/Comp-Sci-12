@@ -3,18 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.u1a5_joshuawu;
+import java.text.DecimalFormat;
+import java.awt.event.*;
+import javax.swing.*;
 /**
  *
  * @author 335181541
  */
 public class CustomProgram extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form CustomProgram
      */
     public CustomProgram() {
         initComponents();
     }
+    
     public static boolean isNumeric(String str) { 
      try {  
         Double i = Double.parseDouble(str);  
@@ -28,35 +32,37 @@ public class CustomProgram extends javax.swing.JFrame {
         screen = "";
         anotherOperation = true;
     }
+    DecimalFormat df0 = new DecimalFormat("#0");
+    DecimalFormat df1 = new DecimalFormat("#0.000");
     String operation = ""; //parses operation
     String screen = ""; //declares variables for output
     double num;
     boolean anotherOperation = false;
     public void add( ){ //If an operator is selected, deselects every other operator button, then checks if input is a number
-    minus.setSelected(false);
-    divide.setSelected(false);
-    times.setSelected(false);
+        minus.setSelected(false);
+        divide.setSelected(false);
+        times.setSelected(false);
     if (isNumeric(screen)) num = Double.parseDouble(screen);
     else errorMessage();
     }
     public void minus( ){ 
-    plus.setSelected(false);
-    divide.setSelected(false);
-    times.setSelected(false);
+        plus.setSelected(false);
+        divide.setSelected(false);
+        times.setSelected(false);
     if (isNumeric(screen)) num = Double.parseDouble(screen);
     else errorMessage();
     }
     public void times( ){ 
-    plus.setSelected(false);
-    divide.setSelected(false);
-    minus.setSelected(false);
+        plus.setSelected(false);
+        divide.setSelected(false);
+        minus.setSelected(false);
     if (isNumeric(screen)) num = Double.parseDouble(screen);
     else errorMessage();
     }
     public void divide( ){ 
-    minus.setSelected(false);
-    plus.setSelected(false);
-    times.setSelected(false);
+        minus.setSelected(false);
+        plus.setSelected(false);
+        times.setSelected(false);
     if (isNumeric(screen)) num = Double.parseDouble(screen);
     else errorMessage(); 
     }
@@ -95,6 +101,10 @@ public class CustomProgram extends javax.swing.JFrame {
     private void initComponents() {
 
         specifyDecimals = new javax.swing.ButtonGroup();
+        Exit = new javax.swing.JDialog();
+        yes = new javax.swing.JButton();
+        no = new javax.swing.JButton();
+        confirmation = new javax.swing.JLabel();
         seven = new javax.swing.JButton();
         eight = new javax.swing.JButton();
         nine = new javax.swing.JButton();
@@ -116,6 +126,53 @@ public class CustomProgram extends javax.swing.JFrame {
         unlimdec = new javax.swing.JRadioButton();
         nodec = new javax.swing.JRadioButton();
         threedec = new javax.swing.JRadioButton();
+        decimals = new javax.swing.JLabel();
+        exit = new javax.swing.JButton();
+
+        Exit.setMinimumSize(new java.awt.Dimension(400, 175));
+
+        yes.setText("Yes");
+        yes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                yesActionPerformed(evt);
+            }
+        });
+
+        no.setText("No");
+        no.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                noActionPerformed(evt);
+            }
+        });
+
+        confirmation.setText("Really exit?");
+
+        javax.swing.GroupLayout ExitLayout = new javax.swing.GroupLayout(Exit.getContentPane());
+        Exit.getContentPane().setLayout(ExitLayout);
+        ExitLayout.setHorizontalGroup(
+            ExitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ExitLayout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(yes)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
+                .addComponent(no)
+                .addGap(44, 44, 44))
+            .addGroup(ExitLayout.createSequentialGroup()
+                .addGap(139, 139, 139)
+                .addComponent(confirmation)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        ExitLayout.setVerticalGroup(
+            ExitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ExitLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(confirmation)
+                .addGap(18, 18, 18)
+                .addGroup(ExitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(yes)
+                    .addComponent(no))
+                .addContainerGap(85, Short.MAX_VALUE))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Calculator");
@@ -247,19 +304,35 @@ public class CustomProgram extends javax.swing.JFrame {
 
         specifyDecimals.add(nodec);
         nodec.setText("No Decimals");
+        nodec.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nodecActionPerformed(evt);
+            }
+        });
 
         specifyDecimals.add(threedec);
         threedec.setText("Three Decimals");
+
+        decimals.setText("Output");
+
+        exit.setText("Exit");
+        exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(57, 57, 57)
+                .addGap(63, 63, 63)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
+                        .addComponent(output)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -296,17 +369,16 @@ public class CustomProgram extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(nine)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(divide)))
+                                .addComponent(divide))
+                            .addComponent(exit))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(unlimdec)
                             .addComponent(nodec)
                             .addComponent(threedec)
-                            .addComponent(clear))
-                        .addGap(13, 13, 13))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(output, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(clear)
+                            .addComponent(decimals))
+                        .addGap(13, 13, 13))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -321,20 +393,15 @@ public class CustomProgram extends javax.swing.JFrame {
                     .addComponent(clear)
                     .addComponent(divide))
                 .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(four)
+                    .addComponent(five)
+                    .addComponent(six)
+                    .addComponent(times)
+                    .addComponent(decimals))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(nodec)
-                        .addGap(14, 14, 14)
-                        .addComponent(unlimdec)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(threedec))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(four)
-                            .addComponent(five)
-                            .addComponent(six)
-                            .addComponent(times))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(one)
                             .addComponent(two)
@@ -345,8 +412,16 @@ public class CustomProgram extends javax.swing.JFrame {
                             .addComponent(zero)
                             .addComponent(decimal)
                             .addComponent(equals)
-                            .addComponent(plus))))
-                .addContainerGap(78, Short.MAX_VALUE))
+                            .addComponent(plus))
+                        .addGap(18, 18, 18)
+                        .addComponent(exit))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(nodec)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(unlimdec)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(threedec)))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         pack();
@@ -441,7 +516,9 @@ public class CustomProgram extends javax.swing.JFrame {
             {
                 num += Double.parseDouble(screen);
                 screen = String.valueOf(num);
-                output.setText(screen);
+                if (nodec.isSelected()) output.setText(df0.format(Double.parseDouble(screen)));
+                else if (unlimdec.isSelected()) output.setText(screen);
+                else output.setText(df1.format(Double.parseDouble(screen)));
                 anotherOperation = true;
                 break;
             }
@@ -449,7 +526,9 @@ public class CustomProgram extends javax.swing.JFrame {
             {
                 num -= Double.parseDouble(screen);
                 screen = String.valueOf(num);
-                output.setText(screen);
+                if (nodec.isSelected()) output.setText(df0.format(Double.parseDouble(screen)));
+                else if (unlimdec.isSelected()) output.setText(screen);
+                else output.setText(df1.format(Double.parseDouble(screen)));
                 anotherOperation = true;
                 break;
             }
@@ -457,7 +536,9 @@ public class CustomProgram extends javax.swing.JFrame {
             {
                 num /= Double.parseDouble(screen);
                 screen = String.valueOf(num);
-                output.setText(screen);
+                if (nodec.isSelected()) output.setText(df0.format(Double.parseDouble(screen)));
+                else if (unlimdec.isSelected()) output.setText(screen);
+                else output.setText(df1.format(Double.parseDouble(screen)));
                 anotherOperation = true;
                 break;
             }
@@ -465,7 +546,9 @@ public class CustomProgram extends javax.swing.JFrame {
             {
                 num *= Double.parseDouble(screen);
                 screen = String.valueOf(num);
-                output.setText(screen);
+                if (nodec.isSelected()) output.setText(df0.format(Double.parseDouble(screen)));
+                else if (unlimdec.isSelected()) output.setText(screen);
+                else output.setText(df1.format(Double.parseDouble(screen)));
                 anotherOperation = true;
                 break;
             }
@@ -486,6 +569,22 @@ public class CustomProgram extends javax.swing.JFrame {
         screen = ""; //clears output
         output.setText("");
     }//GEN-LAST:event_clearActionPerformed
+
+    private void nodecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nodecActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nodecActionPerformed
+
+    private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
+        Exit.setVisible(true);
+    }//GEN-LAST:event_exitActionPerformed
+
+    private void yesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yesActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_yesActionPerformed
+
+    private void noActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_noActionPerformed
+        Exit.setVisible(false);
+    }//GEN-LAST:event_noActionPerformed
 
     /**
      * @param args the command line arguments
@@ -523,15 +622,20 @@ public class CustomProgram extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog Exit;
     private javax.swing.JButton clear;
+    private javax.swing.JLabel confirmation;
     private javax.swing.JButton decimal;
+    private javax.swing.JLabel decimals;
     private javax.swing.JToggleButton divide;
     private javax.swing.JButton eight;
     private javax.swing.JButton equals;
+    private javax.swing.JButton exit;
     private javax.swing.JButton five;
     private javax.swing.JButton four;
     private javax.swing.JToggleButton minus;
     private javax.swing.JButton nine;
+    private javax.swing.JButton no;
     private javax.swing.JRadioButton nodec;
     private javax.swing.JButton one;
     private javax.swing.JFormattedTextField output;
@@ -544,6 +648,8 @@ public class CustomProgram extends javax.swing.JFrame {
     private javax.swing.JToggleButton times;
     private javax.swing.JButton two;
     private javax.swing.JRadioButton unlimdec;
+    private javax.swing.JButton yes;
     private javax.swing.JButton zero;
     // End of variables declaration//GEN-END:variables
 }
+
