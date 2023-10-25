@@ -4,8 +4,6 @@
  */
 package com.mycompany.u1a5_joshuawu;
 import java.text.DecimalFormat;
-import java.awt.event.*;
-import javax.swing.*;
 /**
  *
  * @author 335181541
@@ -27,6 +25,14 @@ public class CustomProgram extends javax.swing.JFrame {
         return false;  
      }  
     }
+    public static boolean isNull(String str) { 
+     try {  
+        Double i = Double.parseDouble(str);  
+        return false;
+     } catch(NullPointerException e){  
+        return true;  
+     }  
+    }
     public void errorMessage(){ //displays error when input is not in number format (ex. 4..7)
         output.setText("Invalid input. Please make sure to enter the number correctly.");
         screen = "";
@@ -38,6 +44,8 @@ public class CustomProgram extends javax.swing.JFrame {
     String screen = ""; //declares variables for output
     double num;
     boolean anotherOperation = false;
+    String[] answerList = new String[10]; //array for textfield consister of calculator answers
+    int index = 0, i;
     public void add( ){ //If an operator is selected, deselects every other operator button, then checks if input is a number
         minus.setSelected(false);
         divide.setSelected(false);
@@ -65,6 +73,30 @@ public class CustomProgram extends javax.swing.JFrame {
         times.setSelected(false);
     if (isNumeric(screen)) num = Double.parseDouble(screen);
     else errorMessage(); 
+    }
+    public void setAnswer( ){ //outputs answer into both output and answerList textfields.
+    screen = String.valueOf(num);
+    if (nodec.isSelected()) 
+        output.setText(df0.format(Double.parseDouble(screen)));
+    else if (unlimdec.isSelected()) 
+        output.setText(screen);
+    else 
+        output.setText(df1.format(Double.parseDouble(screen)));
+    anotherOperation = true;
+    if (index < 10)
+    {
+        answerList[index] = screen;
+        if (nodec.isSelected())
+            answers.append(df0.format(answerList[index]) + "\n");
+        else if (unlimdec.isSelected())
+            answers.append(answerList[index] + "\n");
+        else
+            answers.append(df1.format(answerList[index]) + "\n");
+        index++;
+        answerOutput.setText("Added answer to answer list");       
+    }
+    else
+        answerOutput.setText("Max num of answers reached. Please remove an answer first");
     }
     public void clearScreen(){ //checks if operator is selected, then clears screen if true, then records operation
     if (plus.isSelected()) {
@@ -128,6 +160,11 @@ public class CustomProgram extends javax.swing.JFrame {
         threedec = new javax.swing.JRadioButton();
         decimals = new javax.swing.JLabel();
         exit = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        answers = new javax.swing.JTextArea();
+        answerOutput = new javax.swing.JTextField();
+        clearTop = new javax.swing.JButton();
+        clearAll = new javax.swing.JButton();
 
         Exit.setMinimumSize(new java.awt.Dimension(400, 175));
 
@@ -322,17 +359,31 @@ public class CustomProgram extends javax.swing.JFrame {
             }
         });
 
+        answers.setEditable(false);
+        answers.setColumns(20);
+        answers.setRows(5);
+        jScrollPane1.setViewportView(answers);
+
+        answerOutput.setEditable(false);
+
+        clearTop.setText("Clear Top Answer");
+        clearTop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearTopActionPerformed(evt);
+            }
+        });
+
+        clearAll.setText("Clear All Answers");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(63, 63, 63)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(output)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(output)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -371,57 +422,76 @@ public class CustomProgram extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(divide))
                             .addComponent(exit))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                        .addGap(35, 35, 35)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(unlimdec)
                             .addComponent(nodec)
                             .addComponent(threedec)
                             .addComponent(clear)
-                            .addComponent(decimals))
-                        .addGap(13, 13, 13))))
+                            .addComponent(decimals))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(clearTop)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(answerOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(clearAll)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(output, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(seven)
-                    .addComponent(eight)
-                    .addComponent(nine)
-                    .addComponent(clear)
-                    .addComponent(divide))
-                .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(four)
-                    .addComponent(five)
-                    .addComponent(six)
-                    .addComponent(times)
-                    .addComponent(decimals))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(17, 17, 17)
+                .addComponent(clearTop)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(output, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(one)
-                            .addComponent(two)
-                            .addComponent(three)
-                            .addComponent(minus))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(seven)
+                            .addComponent(eight)
+                            .addComponent(nine)
+                            .addComponent(clear)
+                            .addComponent(divide))
+                        .addGap(14, 14, 14)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(zero)
-                            .addComponent(decimal)
-                            .addComponent(equals)
-                            .addComponent(plus))
-                        .addGap(18, 18, 18)
-                        .addComponent(exit))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(nodec)
+                            .addComponent(four)
+                            .addComponent(five)
+                            .addComponent(six)
+                            .addComponent(times)
+                            .addComponent(decimals))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(unlimdec)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(threedec)))
-                .addContainerGap(37, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(one)
+                                    .addComponent(two)
+                                    .addComponent(three)
+                                    .addComponent(minus))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(zero)
+                                    .addComponent(decimal)
+                                    .addComponent(equals)
+                                    .addComponent(plus))
+                                .addGap(18, 18, 18)
+                                .addComponent(exit))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(nodec)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(unlimdec)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(threedec))))
+                    .addComponent(jScrollPane1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(answerOutput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(clearAll))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -515,41 +585,25 @@ public class CustomProgram extends javax.swing.JFrame {
             case "add":
             {
                 num += Double.parseDouble(screen);
-                screen = String.valueOf(num);
-                if (nodec.isSelected()) output.setText(df0.format(Double.parseDouble(screen)));
-                else if (unlimdec.isSelected()) output.setText(screen);
-                else output.setText(df1.format(Double.parseDouble(screen)));
-                anotherOperation = true;
+                setAnswer();
                 break;
             }
             case "minus":
             {
                 num -= Double.parseDouble(screen);
-                screen = String.valueOf(num);
-                if (nodec.isSelected()) output.setText(df0.format(Double.parseDouble(screen)));
-                else if (unlimdec.isSelected()) output.setText(screen);
-                else output.setText(df1.format(Double.parseDouble(screen)));
-                anotherOperation = true;
+                setAnswer();
                 break;
             }
             case "divide":
             {
                 num /= Double.parseDouble(screen);
-                screen = String.valueOf(num);
-                if (nodec.isSelected()) output.setText(df0.format(Double.parseDouble(screen)));
-                else if (unlimdec.isSelected()) output.setText(screen);
-                else output.setText(df1.format(Double.parseDouble(screen)));
-                anotherOperation = true;
+                setAnswer();
                 break;
             }
             case "times":
             {
                 num *= Double.parseDouble(screen);
-                screen = String.valueOf(num);
-                if (nodec.isSelected()) output.setText(df0.format(Double.parseDouble(screen)));
-                else if (unlimdec.isSelected()) output.setText(screen);
-                else output.setText(df1.format(Double.parseDouble(screen)));
-                anotherOperation = true;
+                setAnswer();
                 break;
             }
             default:
@@ -585,6 +639,26 @@ public class CustomProgram extends javax.swing.JFrame {
     private void noActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_noActionPerformed
         Exit.setVisible(false);
     }//GEN-LAST:event_noActionPerformed
+
+    private void clearTopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearTopActionPerformed
+    answers.setText("");
+    if (index > 1)
+    {
+        answerList[0] = null;
+        for (i = 0; i<=index-2; i++)
+        {
+            answerList[i] = answerList[i+1];
+            answers.append(answerList[i] + "\n");
+        }
+    if (index!=9)
+        answerList[i+1] = null;
+    else
+        answerList[9] = null;
+    index--;
+    answerOutput.setText("Removed top answer to answer list");
+    }
+
+    }//GEN-LAST:event_clearTopActionPerformed
 
     /**
      * @param args the command line arguments
@@ -623,7 +697,11 @@ public class CustomProgram extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog Exit;
+    private javax.swing.JTextField answerOutput;
+    private javax.swing.JTextArea answers;
     private javax.swing.JButton clear;
+    private javax.swing.JButton clearAll;
+    private javax.swing.JButton clearTop;
     private javax.swing.JLabel confirmation;
     private javax.swing.JButton decimal;
     private javax.swing.JLabel decimals;
@@ -633,6 +711,7 @@ public class CustomProgram extends javax.swing.JFrame {
     private javax.swing.JButton exit;
     private javax.swing.JButton five;
     private javax.swing.JButton four;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToggleButton minus;
     private javax.swing.JButton nine;
     private javax.swing.JButton no;
