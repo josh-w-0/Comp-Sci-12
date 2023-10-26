@@ -85,18 +85,21 @@ public class CustomProgram extends javax.swing.JFrame {
     anotherOperation = true;
     if (index < 10)
     {
-        answerList[index] = screen;
         if (nodec.isSelected())
-            answers.append(df0.format(answerList[index]) + "\n");
+            answerList[index] = df0.format(Double.parseDouble(screen));
         else if (unlimdec.isSelected())
-            answers.append(answerList[index] + "\n");
+            answerList[index] = screen;
         else
-            answers.append(df1.format(answerList[index]) + "\n");
+            answerList[index] = df1.format(Double.parseDouble(screen));
+        answers.append(answerList[index] + "\n");
         index++;
         answerOutput.setText("Added answer to answer list");       
     }
     else
+    {
         answerOutput.setText("Max num of answers reached. Please remove an answer first");
+    }
+        
     }
     public void clearScreen(){ //checks if operator is selected, then clears screen if true, then records operation
     if (plus.isSelected()) {
@@ -641,23 +644,22 @@ public class CustomProgram extends javax.swing.JFrame {
     }//GEN-LAST:event_noActionPerformed
 
     private void clearTopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearTopActionPerformed
-    answers.setText("");
-    if (index > 1)
+    answers.setText(""); //clears the top number from the answer list.
+    if (index >= 1)
     {
-        answerList[0] = null;
-        for (i = 0; i<=index-2; i++)
+        index--;
+        for (i = 0; i<=index-1; i++)
         {
             answerList[i] = answerList[i+1];
             answers.append(answerList[i] + "\n");
         }
-    if (index!=9)
-        answerList[i+1] = null;
-    else
+    if (index == 9)
         answerList[9] = null;
-    index--;
-    answerOutput.setText("Removed top answer to answer list");
+    else
+        answerList[index+1] = null;
+    answerOutput.setText("Removed top answer from answer list");
     }
-
+    else answerOutput.setText("No answers to clear.");
     }//GEN-LAST:event_clearTopActionPerformed
 
     /**
