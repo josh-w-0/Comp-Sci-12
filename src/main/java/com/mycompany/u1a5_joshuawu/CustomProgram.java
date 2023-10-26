@@ -44,7 +44,7 @@ public class CustomProgram extends javax.swing.JFrame {
     String screen = ""; //declares variables for output
     double num;
     boolean anotherOperation = false;
-    String[] answerList = new String[10]; //array for textfield consister of calculator answers
+    String[] answerList = new String[10]; //array for textfield consisting of calculator answers
     int index = 0, i;
     public void add( ){ //If an operator is selected, deselects every other operator button, then checks if input is a number
         minus.setSelected(false);
