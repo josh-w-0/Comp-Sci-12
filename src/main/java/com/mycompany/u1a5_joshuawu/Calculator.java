@@ -8,12 +8,12 @@ import java.text.DecimalFormat;
  *
  * @author 335181541
  */
-public class CustomProgram extends javax.swing.JFrame {
+public class Calculator extends javax.swing.JFrame {
     
     /**
      * Creates new form CustomProgram
      */
-    public CustomProgram() {
+    public Calculator() {
         initComponents();
     }
     
@@ -25,27 +25,19 @@ public class CustomProgram extends javax.swing.JFrame {
         return false;  
      }  
     }
-    public static boolean isNull(String str) { 
-     try {  
-        Double i = Double.parseDouble(str);  
-        return false;
-     } catch(NullPointerException e){  
-        return true;  
-     }  
-    }
     public void errorMessage(){ //displays error when input is not in number format (ex. 4..7)
         output.setText("Invalid input. Please make sure to enter the number correctly.");
         screen = "";
         anotherOperation = true;
     }
-    DecimalFormat df0 = new DecimalFormat("#0");
+    DecimalFormat df0 = new DecimalFormat("#0"); //different decimal formats
     DecimalFormat df1 = new DecimalFormat("#0.000");
     String operation = ""; //parses operation
     String screen = ""; //declares variables for output
     double num;
-    boolean anotherOperation = false;
+    boolean anotherOperation = false; //provides the option to use the previously calculated answer
     String[] answerList = new String[10]; //array for textfield consisting of calculator answers
-    int index = 0, i;
+    int index = 0, i; //answer list index
     public void add( ){ //If an operator is selected, deselects every other operator button, then checks if input is a number
         minus.setSelected(false);
         divide.setSelected(false);
@@ -97,7 +89,7 @@ public class CustomProgram extends javax.swing.JFrame {
     }
     else
     {
-        answerOutput.setText("Max num of answers reached. Please remove an answer first");
+        answerOutput.setText("Max num of answers reached. Please remove an answer first before proceeding.");
     }
         
     }
@@ -377,6 +369,11 @@ public class CustomProgram extends javax.swing.JFrame {
         });
 
         clearAll.setText("Clear All Answers");
+        clearAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearAllActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -659,8 +656,22 @@ public class CustomProgram extends javax.swing.JFrame {
         answerList[index+1] = null;
     answerOutput.setText("Removed top answer from answer list");
     }
-    else answerOutput.setText("No answers to clear.");
+    else answerOutput.setText("No answers to remove.");
     }//GEN-LAST:event_clearTopActionPerformed
+
+    private void clearAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearAllActionPerformed
+    if (index >= 1) //clears all answers from the answer list
+    {
+        for (i = 0; i<=index-1; i++)
+        {
+            answerList[i] = null;
+        }
+        answers.setText("");
+        index = 0;
+        answerOutput.setText("Removed all answers from answer list");
+    }
+    else answerOutput.setText("No answers to remove.");
+    }//GEN-LAST:event_clearAllActionPerformed
 
     /**
      * @param args the command line arguments
@@ -679,20 +690,21 @@ public class CustomProgram extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CustomProgram.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Calculator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CustomProgram.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Calculator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CustomProgram.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Calculator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CustomProgram.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Calculator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CustomProgram().setVisible(true);
+                new Calculator().setVisible(true);
             }
         });
     }
