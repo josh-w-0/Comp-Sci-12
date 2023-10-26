@@ -580,7 +580,7 @@ public class Calculator extends javax.swing.JFrame {
     }//GEN-LAST:event_decimalActionPerformed
 
     private void equalsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_equalsActionPerformed
-        if (isNumeric(screen)) {
+        if (isNumeric(screen)) { //checks which operation was selected then calculates and outputs the answer
             switch (operation){
             case "add":
             {
