@@ -644,7 +644,7 @@ public class Calculator extends javax.swing.JFrame {
     }//GEN-LAST:event_nodecActionPerformed
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
-        Exit.setVisible(true);
+        Exit.setVisible(true); //adds exit dialog window, if yes is selected closes the program, if no is selected closes the window
     }//GEN-LAST:event_exitActionPerformed
 
     private void yesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yesActionPerformed
