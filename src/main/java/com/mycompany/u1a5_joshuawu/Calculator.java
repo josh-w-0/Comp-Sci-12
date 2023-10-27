@@ -17,7 +17,7 @@ public class Calculator extends javax.swing.JFrame {
         initComponents();
     }
     
-    public static boolean isNumeric(String str) { 
+    public static boolean isNumeric(String str) { //checks if a string is in proper number format
      try {  
         Double i = Double.parseDouble(str);  
         return true;
@@ -33,11 +33,11 @@ public class Calculator extends javax.swing.JFrame {
     DecimalFormat df0 = new DecimalFormat("#0"); //different decimal formats
     DecimalFormat df1 = new DecimalFormat("#0.000");
     String operation = ""; //parses operation
-    String screen = ""; //declares variables for output
-    double num;
+    String screen = ""; //reads the output from the calculator screen
+    double num; //initial number that is parsed
     boolean anotherOperation = false; //provides the option to use the previously calculated answer
     String[] answerList = new String[10]; //array for textfield consisting of calculator answers
-    int index = 0, i; //answer list index
+    int index = 0, i; //answer list index, i is counter for a for loop
     public void add( ){ //If an operator is selected, deselects every other operator button, then checks if input is a number
         minus.setSelected(false);
         divide.setSelected(false);
