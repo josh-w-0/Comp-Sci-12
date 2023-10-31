@@ -10,7 +10,7 @@ package com.mycompany.u2a1_joshuawu;
  */
 public class Vehicle {
     private int passengerNum;
-    private double passengerFare, fuelEfficiency;
+    private double passengerFare, fuelEfficiency, tripCost;
     private static double gasPrice;
     private static final int PROFIT = 400;
 
@@ -26,5 +26,34 @@ public class Vehicle {
     public static void setGasPrice(double gasPrice) {
         Vehicle.gasPrice = gasPrice;
     }
+    
+    public double totalCost(int distance){
+        this.tripCost = gasPrice*distance;
+        return gasPrice*distance;
+    }
+
+    public int getPassengerNum() {
+        return passengerNum;
+    }
+    
+    public double calculateProfit(){
+        return revenue()-this.tripCost;
+    }
+    
+    public boolean isProfitable(){
+        return (revenue() - this.tripCost)>PROFIT;
+    }
+    public static String compareTo(Vehicle a, Vehicle b){
+        if (a.calculateProfit()>b.calculateProfit())
+        {
+            return a.toString();
+        }
+        else return b.toString();
+    }
+    @Override
+    public String toString() {
+        return "Vehicle{" + "passengerNum=" + passengerNum + ", passengerFare=" + passengerFare + ", fuelEfficiency=" + fuelEfficiency + ", tripCost=" + tripCost + '}';
+    }
+    
     
 }
