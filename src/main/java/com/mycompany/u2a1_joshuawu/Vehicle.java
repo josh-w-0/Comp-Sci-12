@@ -10,8 +10,8 @@ package com.mycompany.u2a1_joshuawu;
  */
 public class Vehicle {
     private int passengerNum;
-    private double passengerFare, fuelEfficiency, tripCost;
-    private static double gasPrice;
+    private double passengerFare, fuelEfficiency, tripCost=-1;
+    private static double gasPrice = -1;
     private static final int PROFIT = 400;
 
     public Vehicle(int passengerNum, double passengerFare, double fuelEfficiency) {
@@ -39,6 +39,14 @@ public class Vehicle {
     public double calculateProfit(){
         return revenue()-this.tripCost;
     }
+
+    public static double getGasPrice() {
+        return gasPrice;
+    }
+
+    public double getTripCost() {
+        return tripCost;
+    }
     
     public boolean isProfitable(){
         return (revenue() - this.tripCost)>PROFIT;
@@ -52,7 +60,7 @@ public class Vehicle {
     }
     @Override
     public String toString() {
-        return "Vehicle{" + "passengerNum=" + passengerNum + ", passengerFare=" + passengerFare + ", fuelEfficiency=" + fuelEfficiency + ", tripCost=" + tripCost + '}';
+        return " passengerNum=" + passengerNum + ", passengerFare=" + passengerFare + ", fuelEfficiency=" + fuelEfficiency;
     }
     
     
