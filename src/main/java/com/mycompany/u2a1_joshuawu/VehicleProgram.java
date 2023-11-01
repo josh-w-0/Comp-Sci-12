@@ -59,7 +59,7 @@ public class VehicleProgram extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        title = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         vehicleOutput = new javax.swing.JTextArea();
         gasPrice = new javax.swing.JTextField();
@@ -85,7 +85,7 @@ public class VehicleProgram extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Vehicle Program");
+        title.setText("Vehicle Program");
 
         vehicleOutput.setEditable(false);
         vehicleOutput.setColumns(20);
@@ -170,7 +170,7 @@ public class VehicleProgram extends javax.swing.JFrame {
                                 .addComponent(currentGasPrice))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(160, 160, 160)
-                                .addComponent(jLabel1))
+                                .addComponent(title))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(38, 38, 38)
                                 .addComponent(numPassengers, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -238,7 +238,7 @@ public class VehicleProgram extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(8, 8, 8)
-                .addComponent(jLabel1)
+                .addComponent(title)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(currentGasPrice)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -407,7 +407,6 @@ public class VehicleProgram extends javax.swing.JFrame {
     private javax.swing.JTextField gasPrice;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -418,6 +417,7 @@ public class VehicleProgram extends javax.swing.JFrame {
     private javax.swing.JTextField numPassengers;
     private javax.swing.JTextField output;
     private javax.swing.JButton profit;
+    private javax.swing.JLabel title;
     private javax.swing.JButton tripCost;
     private javax.swing.JTextArea vehicleOutput;
     // End of variables declaration//GEN-END:variables
