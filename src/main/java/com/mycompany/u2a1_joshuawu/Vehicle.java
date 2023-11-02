@@ -11,7 +11,7 @@ import java.text.DecimalFormat;
 
 public class Vehicle {
     private int passengerNum;
-    private double passengerFare, fuelEfficiency, tripCost=-1;
+    private double passengerFare, fuelEfficiency, tripCost=-1; //remove trip cost, not needed
     private static double gasPrice = -1;
     private static final int PROFIT = 400;
     DecimalFormat df = new DecimalFormat("#0.00");
