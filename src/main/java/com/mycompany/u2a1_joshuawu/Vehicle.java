@@ -28,8 +28,8 @@ public class Vehicle {
     }
     
     public double totalCost(int distance){
-        this.tripCost = gasPrice*distance;
-        return gasPrice*distance;
+        this.tripCost = gasPrice*distance*this.fuelEfficiency;
+        return gasPrice*distance*this.fuelEfficiency;
     }
 
     public int getPassengerNum() {
@@ -51,12 +51,8 @@ public class Vehicle {
     public boolean isProfitable(){
         return (revenue() - this.tripCost)>PROFIT;
     }
-    public static String compareTo(Vehicle a, Vehicle b){
-        if (a.calculateProfit()>b.calculateProfit())
-        {
-            return a.toString();
-        }
-        else return b.toString();
+    public static boolean compareTo(Vehicle a, Vehicle b){ //true if a is higher, false if b is higher
+        return (a.revenue()-a.tripCost>b.revenue()-b.tripCost);
     }
     @Override
     public String toString() {
