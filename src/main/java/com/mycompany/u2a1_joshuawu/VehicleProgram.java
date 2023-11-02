@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.u2a1_joshuawu;
-
+import java.text.DecimalFormat;
 /**
  *
  * @author 335181541
@@ -44,7 +44,7 @@ public class VehicleProgram extends javax.swing.JFrame {
     }
     Vehicle vehicles[] = new Vehicle[5];
     int index = 0;
-            
+    DecimalFormat df = new DecimalFormat("#0.00");        
             
             
             
@@ -87,7 +87,10 @@ public class VehicleProgram extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Vehicle Program");
 
+        title.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        title.setForeground(new java.awt.Color(0, 153, 153));
         title.setText("Vehicle Program");
 
         vehicleOutput.setEditable(false);
@@ -108,7 +111,7 @@ public class VehicleProgram extends javax.swing.JFrame {
 
         fuelTitle.setText("Fuel Efficiency (L/km):");
 
-        fareTitle.setText("Passenger Fare:");
+        fareTitle.setText("Passenger Fare ($):");
 
         createVehicle.setText("Create Vehicle");
         createVehicle.addActionListener(new java.awt.event.ActionListener() {
@@ -321,19 +324,20 @@ public class VehicleProgram extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (isPositiveDouble(gasPrice.getText()))
         {
-            Vehicle.setGasPrice(Double.parseDouble(gasPrice.getText()));
-            currentGasPrice.setText("Current Gas Price: " + gasPrice.getText());
+            double gas = Double.parseDouble(gasPrice.getText());
+            Vehicle.setGasPrice(gas);
+            currentGasPrice.setText("Current Gas Price: " + df.format(gas) + "$");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void createVehicleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createVehicleActionPerformed
-        String temp1 = numPassengers.getText();
-        String temp2 = fuel.getText();
-        String temp3 = fare.getText();
+        String str1 = numPassengers.getText();
+        String str2 = fuel.getText();
+        String str3 = fare.getText();
         if (index < 5)
-            if (isPositiveInt(temp1) && isPositiveDouble(temp2) && isPositiveDouble(temp3))
+            if (isPositiveInt(str1) && isPositiveDouble(str2) && isPositiveDouble(str3))
             {
-                vehicles[index] = new Vehicle(Integer.parseInt(temp1), Double.parseDouble(temp3), Double.parseDouble(temp2));
+                vehicles[index] = new Vehicle(Integer.parseInt(str1), Double.parseDouble(str3), Double.parseDouble(str2));
                 output.setText("Vehicle " + (index+1) + " created");
                 vehicleOutput.append("Vehicle " + (index+1) + ":" + vehicles[index].toString() + "\n");
                 index++;
@@ -347,13 +351,13 @@ public class VehicleProgram extends javax.swing.JFrame {
     }//GEN-LAST:event_carNumActionPerformed
 
     private void RevenueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RevenueActionPerformed
-        String temp1 = carNum.getText();
-        if (isPositiveInt(temp1))
+        String str1 = carNum.getText();
+        if (isPositiveInt(str1))
         {
-            int num = Integer.parseInt(temp1);
+            int num = Integer.parseInt(str1);
             if ((num-1)<index)
             {
-                output.setText("Vehicle revenue is " + vehicles[num-1].revenue() + "$");                
+                output.setText("Vehicle revenue is " + df.format(vehicles[num-1].revenue()) + "$");                
             }
             else output.setText("Vehicle does not exist");
         }
@@ -361,16 +365,16 @@ public class VehicleProgram extends javax.swing.JFrame {
     }//GEN-LAST:event_RevenueActionPerformed
 
     private void tripCostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tripCostActionPerformed
-        String temp1 = carNum.getText();
-        String temp2 = distTraveled.getText();
+        String str1 = carNum.getText();
+        String str2 = distTraveled.getText();
         if (Vehicle.getGasPrice() != -1)
-            if (isPositiveInt(temp1) && isPositiveInt(temp2))
+            if (isPositiveInt(str1) && isPositiveInt(str2))
             {
-                int num1 = Integer.parseInt(temp1);
-                int num2 = Integer.parseInt(temp2);
+                int num1 = Integer.parseInt(str1);
+                int num2 = Integer.parseInt(str2);
                 if ((num1-1)<index)
                 {
-                    output.setText("Trip cost for vehicle " + num1 + " is "  + vehicles[num1-1].totalCost(num2));                
+                    output.setText("Trip cost for vehicle " + num1 + " is "  + df.format(vehicles[num1-1].totalCost(num2)) + "$");                
                 }
                 else output.setText("Vehicle does not exist");
             }
@@ -383,10 +387,10 @@ public class VehicleProgram extends javax.swing.JFrame {
     }//GEN-LAST:event_distTraveledActionPerformed
 
     private void profitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profitActionPerformed
-        String temp1 = carNum.getText();
-        if (isPositiveInt(temp1))
+        String str1 = carNum.getText();
+        if (isPositiveInt(str1))
         {
-            int num = Integer.parseInt(temp1);
+            int num = Integer.parseInt(str1);
             if ((num-1)<index && vehicles[num-1].getTripCost()!=-1)
             {
                 if (vehicles[num-1].isProfitable())
@@ -401,13 +405,13 @@ public class VehicleProgram extends javax.swing.JFrame {
     }//GEN-LAST:event_profitActionPerformed
 
     private void recallTripCostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recallTripCostActionPerformed
-        String temp1 = carNum.getText();
-        if (isPositiveInt(temp1))
+        String str1 = carNum.getText();
+        if (isPositiveInt(str1))
         {
-            int num = Integer.parseInt(temp1);
+            int num = Integer.parseInt(str1);
             if ((num-1)<index && vehicles[num-1].getTripCost()!=-1)
             {
-                output.setText("Trip cost for vehicle " + num + " is " + vehicles[num-1].getTripCost());
+                output.setText("Trip cost for vehicle " + num + " is " + df.format(vehicles[num-1].getTripCost()) + "$");
             }
             else output.setText("Vehicle does not exist or trip cost was not set");
         }
@@ -417,14 +421,16 @@ public class VehicleProgram extends javax.swing.JFrame {
     private void compareProfitsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_compareProfitsActionPerformed
         String str1 = carNum.getText();
         String str2 = secondCarNum.getText();
-        if (isPositiveInt(str1) && isPositiveInt(str2))
+        String str3 = distTraveled.getText();
+        if (isPositiveInt(str1) && isPositiveInt(str2) && isPositiveInt(str3))
         {
             try {
                 int num1 = Integer.parseInt(str1);
                 int num2 = Integer.parseInt(str2);
-                if (vehicles[num1-1].getTripCost()==-1 || vehicles[num2-1].getTripCost()==-1)
-                    output.setText("Please calculate one of the vehicle's trip cost first");
-                else if (Vehicle.compareTo(vehicles[num1-1], vehicles[num2-1]))
+                int num3 = Integer.parseInt(str3);
+                /*if (vehicles[num1-1].getTripCost()==-1 || vehicles[num2-1].getTripCost()==-1)
+                    output.setText("Please calculate the vehicle's trip cost first");
+                else */if (Vehicle.compareTo(vehicles[num1-1], vehicles[num2-1], num3))
                     output.setText("Vehicle " + num1 + " has a higher profit");
                 else output.setText("Vehicle " + num2 + " has a higher profit");
             }
@@ -432,6 +438,7 @@ public class VehicleProgram extends javax.swing.JFrame {
                 output.setText("One or both of the vehicles do not exist. Please make sure you put the correct info.");
             }
         }
+        else output.setText("Please input a positive integer for the vehicle numbers and distance traveled.");
     }//GEN-LAST:event_compareProfitsActionPerformed
 
     private void secondCarNumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_secondCarNumActionPerformed
