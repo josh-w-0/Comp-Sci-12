@@ -19,7 +19,7 @@ public class VehicleProgram extends javax.swing.JFrame {
 
     public static boolean isPositiveDouble(String str) { 
      try {  
-        Double i = Double.parseDouble(str);
+        double i = Double.parseDouble(str);
         return (i>0);
      } catch(NumberFormatException e){  
         return false;  
