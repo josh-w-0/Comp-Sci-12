@@ -84,6 +84,7 @@ public class VehicleProgram extends javax.swing.JFrame {
         secondCarNum = new javax.swing.JTextField();
         secondVehicle = new javax.swing.JLabel();
         calculateProfit = new javax.swing.JButton();
+        maxVehicles = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Vehicle Program");
@@ -181,6 +182,8 @@ public class VehicleProgram extends javax.swing.JFrame {
             }
         });
 
+        maxVehicles.setText("5 vehicles max");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -189,13 +192,8 @@ public class VehicleProgram extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(output, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(currentGasPrice))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(38, 38, 38)
-                                .addComponent(numPassengers, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(38, 38, 38)
+                        .addComponent(numPassengers, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
@@ -263,6 +261,12 @@ public class VehicleProgram extends javax.swing.JFrame {
                             .addComponent(tripCost)))
                     .addComponent(calculateProfit, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(25, 25, 25))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(currentGasPrice)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(maxVehicles)
+                .addGap(142, 142, 142))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,7 +274,9 @@ public class VehicleProgram extends javax.swing.JFrame {
                 .addGap(8, 8, 8)
                 .addComponent(title)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(currentGasPrice)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(currentGasPrice)
+                    .addComponent(maxVehicles))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -498,6 +504,7 @@ public class VehicleProgram extends javax.swing.JFrame {
     private javax.swing.JLabel fuelTitle;
     private javax.swing.JTextField gasPrice;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel maxVehicles;
     private javax.swing.JLabel methods;
     private javax.swing.JTextField numPassengers;
     private javax.swing.JLabel numTitle;
