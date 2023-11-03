@@ -33,7 +33,7 @@ public class VehicleProgram extends javax.swing.JFrame {
         return false;  
      }  
     }
-    public static boolean isAVehicle(Vehicle a){
+    public static boolean isAVehicle(Vehicle a){ //I forgot to use this function
         try {
             int i = a.getPassengerNum();
             return true;
@@ -44,11 +44,10 @@ public class VehicleProgram extends javax.swing.JFrame {
     }
     Vehicle vehicles[] = new Vehicle[5];
     int index = 0;
-    DecimalFormat df = new DecimalFormat("#0.00");        
+    DecimalFormat df = new DecimalFormat("#0.00");       
             
             
-            
-            
+     
             
     /**
      * This method is called from within the constructor to initialize the form.
@@ -63,7 +62,7 @@ public class VehicleProgram extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         vehicleOutput = new javax.swing.JTextArea();
         gasPrice = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        setGasPrice = new javax.swing.JButton();
         currentGasPrice = new javax.swing.JLabel();
         numPassengers = new javax.swing.JTextField();
         fuel = new javax.swing.JTextField();
@@ -79,12 +78,12 @@ public class VehicleProgram extends javax.swing.JFrame {
         distTitle = new javax.swing.JLabel();
         distTraveled = new javax.swing.JTextField();
         tripCost = new javax.swing.JButton();
-        recallTripCost = new javax.swing.JButton();
         Revenue = new javax.swing.JButton();
         profit = new javax.swing.JButton();
         compareProfits = new javax.swing.JButton();
         secondCarNum = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        secondVehicle = new javax.swing.JLabel();
+        calculateProfit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Vehicle Program");
@@ -98,10 +97,10 @@ public class VehicleProgram extends javax.swing.JFrame {
         vehicleOutput.setRows(5);
         jScrollPane1.setViewportView(vehicleOutput);
 
-        jButton1.setText("Set Gas Price");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        setGasPrice.setText("Set Gas Price");
+        setGasPrice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                setGasPriceActionPerformed(evt);
             }
         });
 
@@ -146,13 +145,6 @@ public class VehicleProgram extends javax.swing.JFrame {
             }
         });
 
-        recallTripCost.setText("Recall Trip Cost");
-        recallTripCost.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                recallTripCostActionPerformed(evt);
-            }
-        });
-
         Revenue.setText("Revenue");
         Revenue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,7 +172,14 @@ public class VehicleProgram extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Second Vehicle to Compare:");
+        secondVehicle.setText("Second Vehicle to Compare:");
+
+        calculateProfit.setText("Calculate Profit");
+        calculateProfit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                calculateProfitActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -220,7 +219,7 @@ public class VehicleProgram extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
+                            .addComponent(setGasPrice)
                             .addComponent(gasPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1)
@@ -243,12 +242,12 @@ public class VehicleProgram extends javax.swing.JFrame {
                     .addComponent(secondCarNum, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(numTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
+                        .addComponent(secondVehicle)
                         .addComponent(carNum, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(Revenue)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Revenue, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(compareProfits)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -257,12 +256,12 @@ public class VehicleProgram extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(distTitle)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(recallTripCost, javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addGap(11, 11, 11)
                             .addComponent(distTraveled, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tripCost))))
+                            .addComponent(tripCost)))
+                    .addComponent(calculateProfit, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
@@ -277,7 +276,7 @@ public class VehicleProgram extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(gasPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1))
+                        .addComponent(setGasPrice))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -304,8 +303,8 @@ public class VehicleProgram extends javax.swing.JFrame {
                     .addComponent(tripCost))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(recallTripCost)
-                    .addComponent(jLabel1))
+                    .addComponent(secondVehicle)
+                    .addComponent(calculateProfit))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(profit)
@@ -321,14 +320,14 @@ public class VehicleProgram extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void setGasPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setGasPriceActionPerformed
         if (isPositiveDouble(gasPrice.getText()))
         {
             double gas = Double.parseDouble(gasPrice.getText());
             Vehicle.setGasPrice(gas);
             currentGasPrice.setText("Current Gas Price: " + df.format(gas) + "$");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_setGasPriceActionPerformed
 
     private void createVehicleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createVehicleActionPerformed
         String str1 = numPassengers.getText();
@@ -388,35 +387,23 @@ public class VehicleProgram extends javax.swing.JFrame {
 
     private void profitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profitActionPerformed
         String str1 = carNum.getText();
-        if (isPositiveInt(str1))
+        String str2 = distTraveled.getText();
+        if (isPositiveInt(str1) && isPositiveInt(str2))
         {
-            int num = Integer.parseInt(str1);
-            if ((num-1)<index && vehicles[num-1].getTripCost()!=-1)
+            int num1 = Integer.parseInt(str1);
+            int num2 = Integer.parseInt(str2);
+            if ((num1-1)<index)
             {
-                if (vehicles[num-1].isProfitable())
+                if (vehicles[num1-1].isProfitable(num2))
                 {
-                    output.setText("Vehicle " + num + " will return a profit over 400$.");
+                    output.setText("Vehicle " + num1 + " will return a profit over 400$.");
                 }
-                else output.setText("Vehicle " + num + " will NOT return a profit over 400$.");
+                else output.setText("Vehicle " + num1 + " will NOT return a profit over 400$.");
             }
-            else output.setText("Vehicle does not exist or trip cost was not set");
+            else output.setText("Vehicle does not exist");
         }
         else output.setText("Please input a positive integer");  
     }//GEN-LAST:event_profitActionPerformed
-
-    private void recallTripCostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recallTripCostActionPerformed
-        String str1 = carNum.getText();
-        if (isPositiveInt(str1))
-        {
-            int num = Integer.parseInt(str1);
-            if ((num-1)<index && vehicles[num-1].getTripCost()!=-1)
-            {
-                output.setText("Trip cost for vehicle " + num + " is " + df.format(vehicles[num-1].getTripCost()) + "$");
-            }
-            else output.setText("Vehicle does not exist or trip cost was not set");
-        }
-        else output.setText("Please input a positive integer");          
-    }//GEN-LAST:event_recallTripCostActionPerformed
 
     private void compareProfitsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_compareProfitsActionPerformed
         String str1 = carNum.getText();
@@ -428,9 +415,7 @@ public class VehicleProgram extends javax.swing.JFrame {
                 int num1 = Integer.parseInt(str1);
                 int num2 = Integer.parseInt(str2);
                 int num3 = Integer.parseInt(str3);
-                /*if (vehicles[num1-1].getTripCost()==-1 || vehicles[num2-1].getTripCost()==-1)
-                    output.setText("Please calculate the vehicle's trip cost first");
-                else */if (Vehicle.compareTo(vehicles[num1-1], vehicles[num2-1], num3))
+                if (Vehicle.compareTo(vehicles[num1-1], vehicles[num2-1], num3))
                     output.setText("Vehicle " + num1 + " has a higher profit");
                 else output.setText("Vehicle " + num2 + " has a higher profit");
             }
@@ -444,6 +429,24 @@ public class VehicleProgram extends javax.swing.JFrame {
     private void secondCarNumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_secondCarNumActionPerformed
 
     }//GEN-LAST:event_secondCarNumActionPerformed
+
+    private void calculateProfitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateProfitActionPerformed
+        String str1 = carNum.getText();
+        String str2 = distTraveled.getText();
+        if (Vehicle.getGasPrice() != -1)
+            if (isPositiveInt(str1) && isPositiveInt(str2))
+            {
+                int num1 = Integer.parseInt(str1);
+                int num2 = Integer.parseInt(str2);
+                if ((num1-1)<index)
+                {
+                    output.setText("Profit for vehicle " + num1 + " is "  + df.format(vehicles[num1-1].calculateProfit(num2)) + "$");                
+                }
+                else output.setText("Vehicle does not exist");
+            }
+            else output.setText("Please input a positive integer"); 
+        else output.setText("Please set the gas price first");
+    }//GEN-LAST:event_calculateProfitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -482,6 +485,7 @@ public class VehicleProgram extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Revenue;
+    private javax.swing.JButton calculateProfit;
     private javax.swing.JTextField carNum;
     private javax.swing.JButton compareProfits;
     private javax.swing.JButton createVehicle;
@@ -493,8 +497,6 @@ public class VehicleProgram extends javax.swing.JFrame {
     private javax.swing.JTextField fuel;
     private javax.swing.JLabel fuelTitle;
     private javax.swing.JTextField gasPrice;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel methods;
     private javax.swing.JTextField numPassengers;
@@ -502,8 +504,9 @@ public class VehicleProgram extends javax.swing.JFrame {
     private javax.swing.JTextField output;
     private javax.swing.JLabel passTitle;
     private javax.swing.JButton profit;
-    private javax.swing.JButton recallTripCost;
     private javax.swing.JTextField secondCarNum;
+    private javax.swing.JLabel secondVehicle;
+    private javax.swing.JButton setGasPrice;
     private javax.swing.JLabel title;
     private javax.swing.JButton tripCost;
     private javax.swing.JTextArea vehicleOutput;

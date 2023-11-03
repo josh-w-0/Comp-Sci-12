@@ -11,7 +11,7 @@ import java.text.DecimalFormat;
 
 public class Vehicle {
     private int passengerNum;
-    private double passengerFare, fuelEfficiency, tripCost=-1; //remove trip cost, not needed
+    private double passengerFare, fuelEfficiency;
     private static double gasPrice = -1;
     private static final int PROFIT = 400;
     DecimalFormat df = new DecimalFormat("#0.00");
@@ -29,7 +29,6 @@ public class Vehicle {
     }
     
     public double totalCost(int distance){
-        this.tripCost = gasPrice*distance*this.fuelEfficiency;
         return gasPrice*distance*this.fuelEfficiency;
     }
 
@@ -37,23 +36,20 @@ public class Vehicle {
         return passengerNum;
     }
     
-    public double calculateProfit(){
-        return revenue()-this.tripCost;
+    public double calculateProfit(int distance){
+        return revenue()-totalCost(distance);
     }
 
     public static double getGasPrice() {
         return gasPrice;
     }
 
-    public double getTripCost() {
-        return tripCost;
+    public boolean isProfitable(int distance){
+        return (revenue() - totalCost(distance))>PROFIT;
     }
     
-    public boolean isProfitable(){
-        return (revenue() - this.tripCost)>PROFIT;
-    }
     public static boolean compareTo(Vehicle a, Vehicle b, int distance){ //true if a is higher, false if b is higher. Distance would be same for both vehicles.
-        return (a.revenue()-a.totalCost(distance)>b.revenue()-b.totalCost(distance));
+        return (a.calculateProfit(distance)>b.calculateProfit(distance));
     }
     @Override
     public String toString() {
