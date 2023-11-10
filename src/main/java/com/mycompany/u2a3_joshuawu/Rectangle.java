@@ -8,15 +8,15 @@ package com.mycompany.u2a3_joshuawu;
  *
  * @author 335181541
  */
-public abstract class Shape {
-    protected double unitPrice;
-    protected double[] dimensionsList;
+public class Rectangle extends Shape {
 
-    public double getUnitPrice() {
-        return unitPrice;
+    public Rectangle() {
+        this.dimensionsList = new double[]{4, 20};
     }
-
-    public abstract double[] getDimensionsList();
     
-    
+    @Override
+    public double[] getDimensionsList() {
+        return dimensionsList;
+    }
+ 
 }

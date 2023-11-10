@@ -41,7 +41,8 @@ public class TileCalculator extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    Rectangle rec = new Rectangle();
+    
     /**
      * @param args the command line arguments
      */
