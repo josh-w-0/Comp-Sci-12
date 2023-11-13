@@ -16,6 +16,10 @@ public abstract class Shape {
         return unitPrice;
     }
 
+    public void setUnitPrice(double unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
     public abstract double[] getDimensionsList();
     
     
