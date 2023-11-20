@@ -16,7 +16,7 @@ public class Rectangle extends Shape {
     
     @Override
     public double[] getDimensionsList() {
-        return dimensionsList;
+        return this.dimensionsList;
     }
  
 }

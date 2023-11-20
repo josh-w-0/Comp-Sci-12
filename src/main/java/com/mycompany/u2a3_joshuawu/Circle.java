@@ -12,9 +12,10 @@ public class Circle extends Shape{
     public Circle(){
         this.dimensionsList = new double[]{3.14159,1};
     }
+    
     @Override
     public double[] getDimensionsList() {
-        return dimensionsList;
+        return this.dimensionsList;
     }
     
 }
