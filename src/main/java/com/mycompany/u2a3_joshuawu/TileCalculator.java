@@ -67,6 +67,11 @@ public class TileCalculator extends javax.swing.JFrame {
 
         shapeType.add(circle);
         circle.setText("Circle");
+        circle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                circleActionPerformed(evt);
+            }
+        });
 
         shapeType.add(donut);
         donut.setText("Donut");
@@ -207,6 +212,10 @@ public class TileCalculator extends javax.swing.JFrame {
     private void input2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_input2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_input2ActionPerformed
+
+    private void circleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_circleActionPerformed
+        
+    }//GEN-LAST:event_circleActionPerformed
 
     
     /**
