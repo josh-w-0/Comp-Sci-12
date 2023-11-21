@@ -10,9 +10,9 @@ import java.util.Arrays;
  *
  * @author 335181541
  */
-public class Circle extends Shape{
-    public Circle(double radius){
-        this.dimensionsList = new double[]{radius};
+public class Triangle extends Shape{
+    public Triangle(double base, double height){
+        this.dimensionsList = new double[]{base, height};
     }
     
     @Override
@@ -22,8 +22,6 @@ public class Circle extends Shape{
 
     @Override
     public String toString() {
-        return "Circle " + Arrays.toString(this.getDimensionsList());
-    }
-
-    
+        return "Triangle " + Arrays.toString(this.getDimensionsList());
+    }    
 }

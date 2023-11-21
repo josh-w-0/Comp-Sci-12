@@ -21,6 +21,9 @@ public abstract class Shape {
     }
 
     public abstract double[] getDimensionsList();
+
+    @Override
+    public abstract String toString();
     
-    
+ 
 }

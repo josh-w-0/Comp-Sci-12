@@ -10,9 +10,9 @@ import java.util.Arrays;
  *
  * @author 335181541
  */
-public class Circle extends Shape{
-    public Circle(double radius){
-        this.dimensionsList = new double[]{radius};
+public class Parallelogram extends Shape{
+    public Parallelogram(double length, double width){
+        this.dimensionsList = new double[]{length, width};
     }
     
     @Override
@@ -22,8 +22,7 @@ public class Circle extends Shape{
 
     @Override
     public String toString() {
-        return "Circle " + Arrays.toString(this.getDimensionsList());
-    }
-
-    
+        return "Parallelogram " + Arrays.toString(this.getDimensionsList());
+    }    
 }
+

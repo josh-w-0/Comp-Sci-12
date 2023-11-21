@@ -4,19 +4,24 @@
  */
 package com.mycompany.u2a3_joshuawu;
 
+import java.util.Arrays;
+
 /**
  *
  * @author 335181541
  */
 public class Rectangle extends Shape {
 
-    public Rectangle() {
-        this.dimensionsList = new double[]{4, 20};
+    public Rectangle(double length, double width) {
+        this.dimensionsList = new double[]{length, width};
     }
     
     @Override
     public double[] getDimensionsList() {
         return this.dimensionsList;
     }
- 
+    @Override
+    public String toString() {
+        return "Rectangle " + Arrays.toString(this.getDimensionsList());
+    }
 }
