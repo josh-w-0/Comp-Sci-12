@@ -21,6 +21,11 @@ public class Donut extends Shape{
     }
  
     @Override
+    public double getArea(){
+        return (Math.PI*Math.pow(this.dimensionsList[1],2))-(Math.PI*Math.pow(this.dimensionsList[0],2));
+    }
+    
+    @Override
     public String toString() {
         return "Donut " + Arrays.toString(this.getDimensionsList());
     }

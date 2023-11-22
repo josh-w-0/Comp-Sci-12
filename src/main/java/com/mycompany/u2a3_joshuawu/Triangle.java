@@ -19,7 +19,12 @@ public class Triangle extends Shape{
     public double[] getDimensionsList() {
         return this.dimensionsList;
     }
-
+    
+    @Override
+    public double getArea(){
+        return (this.dimensionsList[0]*this.dimensionsList[1])/2;
+    }
+    
     @Override
     public String toString() {
         return "Triangle " + Arrays.toString(this.getDimensionsList());

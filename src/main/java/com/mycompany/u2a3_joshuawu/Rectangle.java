@@ -20,6 +20,12 @@ public class Rectangle extends Shape {
     public double[] getDimensionsList() {
         return this.dimensionsList;
     }
+
+    @Override
+    public double getArea(){
+        return (this.dimensionsList[0]*this.dimensionsList[1]);
+    }
+    
     @Override
     public String toString() {
         return "Rectangle " + Arrays.toString(this.getDimensionsList());

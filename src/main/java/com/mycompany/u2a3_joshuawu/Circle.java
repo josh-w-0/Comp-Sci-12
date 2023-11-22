@@ -21,6 +21,11 @@ public class Circle extends Shape{
     }
 
     @Override
+    public double getArea(){
+        return (Math.PI*Math.pow(this.dimensionsList[0],2));
+    }
+    
+    @Override
     public String toString() {
         return "Circle " + Arrays.toString(this.getDimensionsList());
     }
