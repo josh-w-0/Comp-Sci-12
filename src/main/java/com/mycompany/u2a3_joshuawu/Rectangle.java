@@ -28,6 +28,6 @@ public class Rectangle extends Shape {
     
     @Override
     public String toString() {
-        return "Rectangle " + Arrays.toString(this.getDimensionsList());
+        return "Rectangle: Length = " + this.dimensionsList[0] + " cm, Width = "  + this.dimensionsList[1] + " cm";
     }
 }

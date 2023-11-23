@@ -27,6 +27,6 @@ public class Triangle extends Shape{
     
     @Override
     public String toString() {
-        return "Triangle " + Arrays.toString(this.getDimensionsList());
+        return "Triangle: Base = " + this.dimensionsList[0] + " cm, Height = "  + this.dimensionsList[1] + " cm";
     }    
 }

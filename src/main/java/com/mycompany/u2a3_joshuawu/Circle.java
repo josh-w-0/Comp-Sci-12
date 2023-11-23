@@ -27,7 +27,7 @@ public class Circle extends Shape{
     
     @Override
     public String toString() {
-        return "Circle " + Arrays.toString(this.getDimensionsList());
+        return "Circle: Radius = " + dimensionsList[0] + " cm";
     }
 
     

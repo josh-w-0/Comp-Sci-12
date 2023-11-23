@@ -27,7 +27,7 @@ public class Parallelogram extends Shape{
     
     @Override
     public String toString() {
-        return "Parallelogram " + Arrays.toString(this.getDimensionsList());
+        return "Parallelogram: Base = " + this.dimensionsList[0] + " cm, Height = "  + this.dimensionsList[1] + " cm";
     }    
 }
 

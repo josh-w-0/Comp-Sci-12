@@ -9,15 +9,15 @@ package com.mycompany.u2a3_joshuawu;
  * @author 335181541
  */
 public abstract class Shape {
-    protected double unitPrice;
+    protected static double unitPrice = -1;
     protected double[] dimensionsList;
 
-    public double getUnitPrice() {
+    public static double getUnitPrice() {
         return unitPrice;
     }
 
-    public void setUnitPrice(double unitPrice) {
-        this.unitPrice = unitPrice;
+    public static void setUnitPrice(double price) {
+        unitPrice = price;
     }
 
     public abstract double[] getDimensionsList();
