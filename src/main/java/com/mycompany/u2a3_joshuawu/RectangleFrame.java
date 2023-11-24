@@ -20,7 +20,7 @@ public class RectangleFrame extends Shape{
  
     @Override
     public double getArea(){
-        return (this.dimensionsList[3]*this.dimensionsList[4])-(this.dimensionsList[0]*this.dimensionsList[1]);
+        return (this.dimensionsList[2]*this.dimensionsList[3])-(this.dimensionsList[0]*this.dimensionsList[1]);
     }
     
     @Override

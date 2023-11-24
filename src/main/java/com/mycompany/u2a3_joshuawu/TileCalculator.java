@@ -51,7 +51,7 @@ public class TileCalculator extends javax.swing.JFrame {
         circle = new javax.swing.JRadioButton();
         donut = new javax.swing.JRadioButton();
         rectFrame = new javax.swing.JRadioButton();
-        jRadioButton8 = new javax.swing.JRadioButton();
+        trapezoid = new javax.swing.JRadioButton();
         title = new javax.swing.JLabel();
         dimen1 = new javax.swing.JLabel();
         dimen2 = new javax.swing.JLabel();
@@ -127,8 +127,13 @@ public class TileCalculator extends javax.swing.JFrame {
             }
         });
 
-        shapeType.add(jRadioButton8);
-        jRadioButton8.setText("jRadioButton8");
+        shapeType.add(trapezoid);
+        trapezoid.setText("Trapezoid");
+        trapezoid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                trapezoidActionPerformed(evt);
+            }
+        });
 
         title.setFont(new java.awt.Font("Comic Sans MS", 3, 18)); // NOI18N
         title.setForeground(new java.awt.Color(204, 204, 0));
@@ -245,60 +250,55 @@ public class TileCalculator extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(rectangle)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(0, 284, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(titleShape)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(output))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(rectFrame)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jRadioButton8)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addGap(26, 26, 26)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(titleIndex)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(29, 29, 29)
-                                        .addComponent(shapeIndex, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(9, 9, 9)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(addShape)
-                                    .addComponent(remove)
-                                    .addComponent(area)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(priceSet)
-                                        .addGap(87, 87, 87)
-                                        .addComponent(cost))
-                                    .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(priceTitle)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(parallelogram)
-                                                    .addComponent(triangle)
-                                                    .addComponent(circle)
-                                                    .addComponent(donut))
-                                                .addGap(29, 29, 29)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(dimen3, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                        .addComponent(dimen2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(dimen1, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE))
-                                                    .addComponent(dimen4, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                        .addGap(15, 15, 15)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(input3, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
-                                            .addComponent(input4))))))))
-                .addGap(30, 30, 30))
+                                            .addComponent(rectFrame)
+                                            .addComponent(trapezoid))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(titleIndex)
+                                            .addComponent(shapeIndex, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(9, 9, 9)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(addShape)
+                                            .addComponent(remove)
+                                            .addComponent(area)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(priceSet)
+                                            .addGap(87, 87, 87)
+                                            .addComponent(cost))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(priceTitle)
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(parallelogram)
+                                                        .addComponent(triangle)
+                                                        .addComponent(circle)
+                                                        .addComponent(donut))
+                                                    .addGap(29, 29, 29)
+                                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(dimen3, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                            .addComponent(dimen2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                            .addComponent(dimen1, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE))
+                                                        .addComponent(dimen4, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addGap(15, 15, 15)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(input3, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                                                .addComponent(input4)))))))))
+                .addGap(33, 33, 33))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -339,8 +339,8 @@ public class TileCalculator extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(rectFrame)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButton8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                        .addComponent(trapezoid)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(priceTitle))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -352,7 +352,7 @@ public class TileCalculator extends javax.swing.JFrame {
                             .addComponent(shapeIndex, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(10, 10, 10)
                         .addComponent(area)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 28, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -506,6 +506,13 @@ public class TileCalculator extends javax.swing.JFrame {
                     }
                     else output.setText("Please doublecheck inputs. Either inner length > outer length or in width > out width.");
                 }
+                break;
+            case "trapezoid":
+                if (isPositiveDouble(str1) && isPositiveDouble(str2) && isPositiveDouble(str3))
+                {
+                    shapeList.add(new Trapezoid(Double.parseDouble(str1), Double.parseDouble(str2), Double.parseDouble(str3)));
+                    shapes.append((shapeList.size())+ ". " + shapeList.get(shapeList.size()-1).toString() + "\n" );
+                }
                 break;                
             default:
                 output.setText("Please select a shape.");
@@ -571,6 +578,17 @@ public class TileCalculator extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_input4ActionPerformed
 
+    private void trapezoidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trapezoidActionPerformed
+        dimen1.setText("Bottom Base:");
+        dimen2.setText("Top Base:");
+        dimen3.setText("Height:");
+        dimen4.setText("");
+        shape = "trapezoid";
+        input2.setVisible(true);
+        input3.setVisible(true);
+        input4.setVisible(false);
+    }//GEN-LAST:event_trapezoidActionPerformed
+
     
     /**
      * @param args the command line arguments
@@ -622,7 +640,6 @@ public class TileCalculator extends javax.swing.JFrame {
     private javax.swing.JTextField input3;
     private javax.swing.JTextField input4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JRadioButton jRadioButton8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField output;
     private javax.swing.JRadioButton parallelogram;
@@ -639,6 +656,7 @@ public class TileCalculator extends javax.swing.JFrame {
     private javax.swing.JLabel title;
     private javax.swing.JLabel titleIndex;
     private javax.swing.JLabel titleShape;
+    private javax.swing.JRadioButton trapezoid;
     private javax.swing.JRadioButton triangle;
     // End of variables declaration//GEN-END:variables
 }
