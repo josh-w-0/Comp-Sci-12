@@ -27,7 +27,8 @@ public class Parallelogram extends Shape{
     
     @Override
     public String toString() {
-        return "Parallelogram: Base = " + this.dimensionsList[0] + " cm, Height = "  + this.dimensionsList[1] + " cm";
+        return "Parallelogram: Base = " + this.dimensionsList[0] + " cm, Height = "  + this.dimensionsList[1] + " cm" 
+                + "\nArea: " + df.format(this.getArea()) + "cm\u00B2";
     }    
 }
 

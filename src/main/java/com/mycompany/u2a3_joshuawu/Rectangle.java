@@ -4,7 +4,7 @@
  */
 package com.mycompany.u2a3_joshuawu;
 
-import java.util.Arrays;
+
 
 /**
  *
@@ -28,6 +28,7 @@ public class Rectangle extends Shape {
     
     @Override
     public String toString() {
-        return "Rectangle: Length = " + this.dimensionsList[0] + " cm, Width = "  + this.dimensionsList[1] + " cm";
+        return "Rectangle: Length = " + this.dimensionsList[0] + " cm, Width = "  + this.dimensionsList[1] + " cm" 
+                + "\nArea: " + df.format(this.getArea()) + "cm\u00B2";
     }
 }

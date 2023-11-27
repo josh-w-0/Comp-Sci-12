@@ -4,6 +4,8 @@
  */
 package com.mycompany.u2a3_joshuawu;
 
+
+
 /**
  *
  * @author 335181541
@@ -27,6 +29,6 @@ public class Trapezoid extends Shape{
     public String toString() {
         return "Trapezoid: Bottom Base Length = " + this.dimensionsList[0] + " cm, Top Base Length = "  
                 + this.dimensionsList[1] + " cm, Height = " + 
-                this.dimensionsList[2] + " cm";
+                this.dimensionsList[2] + " cm" + "\nArea: " + df.format(this.getArea()) + "cm\u00B2";
     }
 }

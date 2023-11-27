@@ -27,7 +27,8 @@ public class RectangleFrame extends Shape{
     public String toString() {
         return "Rectangle Frame: Inner Length = " + this.dimensionsList[0] + " cm, Inner Width = "  
                 + this.dimensionsList[1] + " cm, Outer Length = " + 
-                this.dimensionsList[2] + " cm, Outer Width = " + this.dimensionsList[3] + " cm";
+                this.dimensionsList[2] + " cm, Outer Width = " + this.dimensionsList[3] + " cm" 
+                + "\nArea: " + df.format(this.getArea()) + "cm\u00B2";
     }
 }
 

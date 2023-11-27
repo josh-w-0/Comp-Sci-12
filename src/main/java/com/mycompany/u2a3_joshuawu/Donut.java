@@ -27,6 +27,7 @@ public class Donut extends Shape{
     
     @Override
     public String toString() {
-        return "Donut: Inner Radius = " + this.dimensionsList[0] + " cm, Outer Radius = "  + this.dimensionsList[1] + " cm";
+        return "Donut: Inner Radius = " + this.dimensionsList[0] + " cm, Outer Radius = "  + this.dimensionsList[1] + " cm" 
+                + "\nArea: " + df.format(this.getArea()) + "cm\u00B2";
     }
 }

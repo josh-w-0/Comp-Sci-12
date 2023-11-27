@@ -4,7 +4,7 @@
  */
 package com.mycompany.u2a3_joshuawu;
 
-import java.util.Arrays;
+
 
 /**
  *
@@ -27,7 +27,7 @@ public class Circle extends Shape{
     
     @Override
     public String toString() {
-        return "Circle: Radius = " + dimensionsList[0] + " cm";
+        return "Circle: Radius = " + dimensionsList[0] + " cm" + "\nArea: " + df.format(this.getArea()) + "cm\u00B2";
     }
 
     

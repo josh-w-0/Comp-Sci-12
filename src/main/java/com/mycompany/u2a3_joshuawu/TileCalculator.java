@@ -78,6 +78,7 @@ public class TileCalculator extends javax.swing.JFrame {
         input4 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Tile Calculator");
 
         shapeType.add(rectangle);
         rectangle.setText("Rectangle");
@@ -252,8 +253,9 @@ public class TileCalculator extends javax.swing.JFrame {
                                 .addComponent(rectangle)
                                 .addGap(0, 284, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
                                 .addComponent(titleShape)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(output))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
@@ -358,11 +360,15 @@ public class TileCalculator extends javax.swing.JFrame {
                     .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cost)
                     .addComponent(priceSet))
-                .addGap(9, 9, 9)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(titleShape)
-                    .addComponent(output, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(output, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(titleShape)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -464,7 +470,9 @@ public class TileCalculator extends javax.swing.JFrame {
                 {
                     shapeList.add(new Circle(Double.parseDouble(str1)));
                     shapes.append((shapeList.size())+ ". " + shapeList.get(shapeList.size()-1).toString() + "\n" );
+                    output.setText("Shape added");
                 }
+                else output.setText("Input is not a number");
                 break;
             case "donut":
                 if (isPositiveDouble(str1) && isPositiveDouble(str2))
@@ -472,30 +480,38 @@ public class TileCalculator extends javax.swing.JFrame {
                     if (Double.parseDouble(str1) < Double.parseDouble(str2)) {
                     shapeList.add(new Donut(Double.parseDouble(str1), Double.parseDouble(str2)));
                     shapes.append((shapeList.size())+ ". " + shapeList.get(shapeList.size()-1).toString() + "\n" );
+                    output.setText("Shape added");
                     }
                     else output.setText("Inner radius CANNOT be larger than outer radius");
                 }
+                else output.setText("Input is not a number");
                 break;
             case "parallelogram":
                 if (isPositiveDouble(str1) && isPositiveDouble(str2))
                 {
                     shapeList.add(new Parallelogram(Double.parseDouble(str1), Double.parseDouble(str2)));
-                    shapes.append((shapeList.size())+ ". " + shapeList.get(shapeList.size()-1).toString() + "\n" );                    
-                }   
+                    shapes.append((shapeList.size())+ ". " + shapeList.get(shapeList.size()-1).toString() + "\n" );
+                    output.setText("Shape added");
+                }
+                else output.setText("Input is not a number");
                 break;
             case "rectangle":
                 if (isPositiveDouble(str1) && isPositiveDouble(str2))
                 {
                     shapeList.add(new Rectangle(Double.parseDouble(str1), Double.parseDouble(str2)));
                     shapes.append((shapeList.size())+ ". " + shapeList.get(shapeList.size()-1).toString() + "\n" );
-                }   
+                    output.setText("Shape added");
+                }
+                else output.setText("Input is not a number");
                 break;
             case "triangle":
                 if (isPositiveDouble(str1) && isPositiveDouble(str2))
                 {
                     shapeList.add(new Triangle(Double.parseDouble(str1), Double.parseDouble(str2)));
                     shapes.append((shapeList.size())+ ". " + shapeList.get(shapeList.size()-1).toString() + "\n" );
+                    output.setText("Shape added");
                 }
+                else output.setText("Input is not a number");
                 break;
             case "rectFrame":
                 if (isPositiveDouble(str1) && isPositiveDouble(str2) && isPositiveDouble(str3) && isPositiveDouble(str4))
@@ -503,16 +519,20 @@ public class TileCalculator extends javax.swing.JFrame {
                     if (Double.parseDouble(str1) < Double.parseDouble(str3) && Double.parseDouble(str2) < Double.parseDouble(str4)) {
                     shapeList.add(new RectangleFrame(Double.parseDouble(str1), Double.parseDouble(str2),Double.parseDouble(str3), Double.parseDouble(str4)));
                     shapes.append((shapeList.size())+ ". " + shapeList.get(shapeList.size()-1).toString() + "\n" );
+                    output.setText("Shape added");
                     }
-                    else output.setText("Please doublecheck inputs. Either inner length > outer length or in width > out width.");
+                    else output.setText("Please doublecheck inputs. Either inner length >= outer length or in width >= out width.");
                 }
+                else output.setText("Input is not a number");
                 break;
             case "trapezoid":
                 if (isPositiveDouble(str1) && isPositiveDouble(str2) && isPositiveDouble(str3))
                 {
                     shapeList.add(new Trapezoid(Double.parseDouble(str1), Double.parseDouble(str2), Double.parseDouble(str3)));
                     shapes.append((shapeList.size())+ ". " + shapeList.get(shapeList.size()-1).toString() + "\n" );
+                    output.setText("Shape added");
                 }
+                else output.setText("Input is not a number");
                 break;                
             default:
                 output.setText("Please select a shape.");

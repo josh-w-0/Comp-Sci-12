@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.u2a3_joshuawu;
-
+import java.text.DecimalFormat;
 /**
  *
  * @author 335181541
@@ -11,7 +11,7 @@ package com.mycompany.u2a3_joshuawu;
 public abstract class Shape {
     protected static double unitPrice = -1;
     protected double[] dimensionsList;
-
+    DecimalFormat df = new DecimalFormat("#0.00");
     public static double getUnitPrice() {
         return unitPrice;
     }
