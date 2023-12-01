@@ -28,5 +28,10 @@ public class Item {
         this.currentPrice = currentPrice;
     }
 
+    @Override
+    public String toString() {
+        return  sku + "," + name + "," + category + "," + quantity + "," + minimumQuantity + "," + vendorPrice + "," + markupPercentage + "," + regularPrice + "," + currentDiscount + "," + currentPrice;
+    }
+
     
 }
