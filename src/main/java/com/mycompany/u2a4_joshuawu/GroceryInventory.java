@@ -8,8 +8,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
-
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,7 +50,14 @@ public class GroceryInventory extends javax.swing.JFrame {
     return outputAsArray;
     
   }
-
+    public static boolean isPositiveInt(String str) { 
+     try {  
+        Integer i = Integer.parseInt(str);  
+        return (i>0 && i<10000);
+     } catch(NumberFormatException e){  
+        return false;  
+     }  
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -62,17 +69,22 @@ public class GroceryInventory extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         read = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         foodList = new javax.swing.JTextArea();
         title = new javax.swing.JLabel();
         output = new javax.swing.JTextField();
         skuType = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
+        dash = new javax.swing.JLabel();
         skuNums = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        nameInput = new javax.swing.JTextField();
+        foodTitle = new javax.swing.JLabel();
+        query = new javax.swing.JButton();
+        sku = new javax.swing.JRadioButton();
+        name = new javax.swing.JRadioButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        foundItems = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -106,22 +118,35 @@ public class GroceryInventory extends javax.swing.JFrame {
         }
     });
 
-    jLabel1.setText("-");
+    dash.setText("-");
 
-    jTextField1.addActionListener(new java.awt.event.ActionListener() {
+    skuNums.setText(df.format(Item.getFruNum()));
+
+    nameInput.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jTextField1ActionPerformed(evt);
+            nameInputActionPerformed(evt);
         }
     });
 
-    jLabel2.setText("Food Name:");
+    foodTitle.setText("Food Name:");
 
-    jButton1.setText("Search Food");
-    jButton1.addActionListener(new java.awt.event.ActionListener() {
+    query.setText("Search Food");
+    query.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton1ActionPerformed(evt);
+            queryActionPerformed(evt);
         }
     });
+
+    buttonGroup1.add(sku);
+    sku.setSelected(true);
+    sku.setText("by SKU");
+
+    buttonGroup1.add(name);
+    name.setText("by Name");
+
+    foundItems.setColumns(20);
+    foundItems.setRows(5);
+    jScrollPane2.setViewportView(foundItems);
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
@@ -130,24 +155,34 @@ public class GroceryInventory extends javax.swing.JFrame {
         .addGroup(layout.createSequentialGroup()
             .addGap(30, 30, 30)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(skuType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jLabel1)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(skuNums, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(31, 31, 31)
-                    .addComponent(jLabel2)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                    .addComponent(jButton1))
                 .addComponent(jScrollPane1)
                 .addGroup(layout.createSequentialGroup()
                     .addComponent(read)
                     .addGap(84, 84, 84)
                     .addComponent(title))
-                .addComponent(output))
+                .addComponent(output)
+                .addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane2)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(skuType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(dash)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(skuNums, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(31, 31, 31)
+                            .addComponent(foodTitle)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(nameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(query))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGap(178, 178, 178)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(name, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(sku, javax.swing.GroupLayout.Alignment.TRAILING))))))
             .addContainerGap(11, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
@@ -164,18 +199,25 @@ public class GroceryInventory extends javax.swing.JFrame {
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(skuType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jLabel1)
+                .addComponent(dash)
                 .addComponent(skuNums, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jLabel2)
-                .addComponent(jButton1))
-            .addContainerGap(106, Short.MAX_VALUE))
+                .addComponent(nameInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(foodTitle)
+                .addComponent(query))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(sku)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(name))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addContainerGap(14, Short.MAX_VALUE))
     );
 
     pack();
     }// </editor-fold>//GEN-END:initComponents
     ArrayList<Item> itemList = new ArrayList<>();
-    
+    DecimalFormat df = new DecimalFormat("0000");
     private void readActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_readActionPerformed
         String[] list = readFromFile();
         itemList.clear();
@@ -192,16 +234,50 @@ public class GroceryInventory extends javax.swing.JFrame {
     }//GEN-LAST:event_readActionPerformed
 
     private void skuTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_skuTypeActionPerformed
-        // TODO add your handling code here:
+        if (skuType.getSelectedItem().equals("FRU")){
+            skuNums.setText(df.format(Item.getFruNum()));
+        }        
+        else if (skuType.getSelectedItem().equals("VEG")){
+            skuNums.setText(df.format(Item.getVegNum()));
+        }
+        else if (skuType.getSelectedItem().equals("MEA")){
+            skuNums.setText(df.format(Item.getMeaNum()));
+        }
     }//GEN-LAST:event_skuTypeActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void nameInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameInputActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_nameInputActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void queryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_queryActionPerformed
+        String str3 = skuNums.getText();
+        if (isPositiveInt(str3)){
+            int skuNumber = Integer.parseInt(str3);
+            String str1 = skuType.getSelectedItem() + "-" + df.format(skuNumber);
+            String str2;
+            boolean itemFound = false;
+            foundItems.setText("");
+            if (sku.isSelected()){
+                for (int i = 0; i<itemList.size();i++){
+                    str2 = itemList.get(i).getSku();
+                    if (str1.equals(str2)){
+                        foundItems.append(itemList.get(i).toString() + "\n");
+                        itemFound = true;  
+                        break;
+                    }
+                }
+        }
+        else{
+            
+        }
+        if (!itemFound){
+            output.setText("No items were found");
+        }
+        }
+        else
+            output.setText("Please input a positive integer between 1 and 9999 for SKU.");
+
+    }//GEN-LAST:event_queryActionPerformed
     
     /**
      * @param args the command line arguments
@@ -239,14 +315,19 @@ public class GroceryInventory extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JLabel dash;
     private javax.swing.JTextArea foodList;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel foodTitle;
+    private javax.swing.JTextArea foundItems;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JRadioButton name;
+    private javax.swing.JTextField nameInput;
     private javax.swing.JTextField output;
+    private javax.swing.JButton query;
     private javax.swing.JButton read;
+    private javax.swing.JRadioButton sku;
     private javax.swing.JTextField skuNums;
     private javax.swing.JComboBox<String> skuType;
     private javax.swing.JLabel title;
