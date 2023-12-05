@@ -8,6 +8,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -50,13 +52,27 @@ public class GroceryInventory extends javax.swing.JFrame {
     return outputAsArray;
     
   }
-    public static boolean isPositiveInt(String str) { 
+    public static boolean isPositiveInt(String str) { //checks if number is postive integer between 1 and 9999
      try {  
         Integer i = Integer.parseInt(str);  
         return (i>0 && i<10000);
      } catch(NumberFormatException e){  
         return false;  
      }  
+    }
+    public static boolean isPositiveDouble(String str) { //checks if number is postive double
+     try {  
+        Double i = Double.parseDouble(str);  
+        return (i>0);
+     } catch(NumberFormatException e){  
+        return false;  
+     }  
+    }
+    public static double round(double value, int places) { //rounds a double number
+        if (places < 0) throw new IllegalArgumentException();
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -85,6 +101,17 @@ public class GroceryInventory extends javax.swing.JFrame {
         name = new javax.swing.JRadioButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         foundItems = new javax.swing.JTextArea();
+        quantityTitle = new javax.swing.JLabel();
+        quantity = new javax.swing.JTextField();
+        minQuantityTitle = new javax.swing.JLabel();
+        minQuantity = new javax.swing.JTextField();
+        vPriceTitle = new javax.swing.JLabel();
+        vPrice = new javax.swing.JTextField();
+        markupTitle = new javax.swing.JLabel();
+        markup = new javax.swing.JTextField();
+        discount = new javax.swing.JTextField();
+        discountTitle = new javax.swing.JLabel();
+        addFood = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -121,6 +148,11 @@ public class GroceryInventory extends javax.swing.JFrame {
     dash.setText("-");
 
     skuNums.setText(df.format(Item.getFruNum()));
+    skuNums.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            skuNumsActionPerformed(evt);
+        }
+    });
 
     nameInput.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,42 +180,82 @@ public class GroceryInventory extends javax.swing.JFrame {
     foundItems.setRows(5);
     jScrollPane2.setViewportView(foundItems);
 
+    quantityTitle.setText("Quantity:");
+
+    minQuantityTitle.setText("Min Quantity:");
+
+    vPriceTitle.setText("Vendor Price:");
+
+    markupTitle.setText("Markup%:");
+
+    discountTitle.setText("Discount%");
+
+    addFood.setText("Add Food");
+    addFood.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            addFoodActionPerformed(evt);
+        }
+    });
+
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(layout.createSequentialGroup()
             .addGap(30, 30, 30)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                .addComponent(jScrollPane1)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(read)
+                        .addGap(84, 84, 84)
+                        .addComponent(title))
+                    .addComponent(output)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(quantityTitle)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(quantity, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(minQuantityTitle)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(minQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                            .addComponent(jScrollPane2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(skuType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(dash)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(skuNums, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)
+                                .addComponent(foodTitle)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(name, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(sku, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(nameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(addFood)
+                                    .addComponent(query))))))
                 .addGroup(layout.createSequentialGroup()
-                    .addComponent(read)
-                    .addGap(84, 84, 84)
-                    .addComponent(title))
-                .addComponent(output)
-                .addGroup(layout.createSequentialGroup()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jScrollPane2)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(skuType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(dash)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(skuNums, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(31, 31, 31)
-                            .addComponent(foodTitle)))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(nameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(query))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addGap(178, 178, 178)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(name, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(sku, javax.swing.GroupLayout.Alignment.TRAILING))))))
-            .addContainerGap(11, Short.MAX_VALUE))
+                        .addComponent(vPriceTitle)
+                        .addComponent(discountTitle))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(vPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                        .addComponent(discount))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(markupTitle)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(markup, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addContainerGap(26, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,7 +283,24 @@ public class GroceryInventory extends javax.swing.JFrame {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(name))
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addContainerGap(14, Short.MAX_VALUE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(quantityTitle)
+                .addComponent(quantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(minQuantityTitle)
+                .addComponent(minQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(18, 18, 18)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(vPriceTitle)
+                .addComponent(vPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(markupTitle)
+                .addComponent(markup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(addFood))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(discount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(discountTitle))
+            .addContainerGap(12, Short.MAX_VALUE))
     );
 
     pack();
@@ -251,33 +340,81 @@ public class GroceryInventory extends javax.swing.JFrame {
 
     private void queryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_queryActionPerformed
         String str3 = skuNums.getText();
-        if (isPositiveInt(str3)){
+        String str2;
+        boolean itemFound = false;
+        if (sku.isSelected()){
+            if (isPositiveInt(str3)){
             int skuNumber = Integer.parseInt(str3);
             String str1 = skuType.getSelectedItem() + "-" + df.format(skuNumber);
-            String str2;
-            boolean itemFound = false;
             foundItems.setText("");
-            if (sku.isSelected()){
                 for (int i = 0; i<itemList.size();i++){
                     str2 = itemList.get(i).getSku();
                     if (str1.equals(str2)){
                         foundItems.append(itemList.get(i).toString() + "\n");
                         itemFound = true;  
                         break;
+                }
+            }
+            if (!itemFound){
+            output.setText("No items were found");
+            }
+            }
+            else output.setText("Please input a positive integer between 1 and 9999 for SKU.");
+        }    
+        else if (name.isSelected()){
+                str2 = nameInput.getText().toLowerCase();
+                int nameSize = str2.length();
+                foundItems.setText("");
+                for (int i = 0; i<itemList.size();i++){
+                    str3 = itemList.get(i).getName();
+                    if (nameSize<=str3.length()&& str2.equals(str3.substring(0,nameSize).toLowerCase())){
+                        foundItems.append(itemList.get(i).toString() + "\n");
+                        itemFound = true;                        
                     }
                 }
-        }
-        else{
-            
-        }
-        if (!itemFound){
-            output.setText("No items were found");
-        }
-        }
-        else
-            output.setText("Please input a positive integer between 1 and 9999 for SKU.");
+                if (!itemFound){
+                output.setText("No items were found");
+                }
+            }
+        
+
 
     }//GEN-LAST:event_queryActionPerformed
+
+    private void addFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFoodActionPerformed
+        String str1 = skuNums.getText(), str2 = nameInput.getText(), str3 = quantity.getText(),
+                str4 = minQuantity.getText(), str5 = vPrice.getText(), str6 = markup.getText(),
+                str7 = discount.getText(), str8 = skuType.getSelectedItem().toString();
+        boolean AllTestsTrue = true;
+        if (str2.equals("") || str2.length()>20){
+            output.setText("Name cannot be empty or over 20 characters");
+            AllTestsTrue = false;
+        }
+        if (isPositiveInt(str3) && isPositiveInt(str4)){
+            int quan = Integer.parseInt(str3), minQuan = Integer.parseInt(str4);
+            if (quan < minQuan){
+                output.setText("Quantity has to be larger than min quantity");
+                AllTestsTrue = false;
+            }
+        }
+        else{
+            output.setText("Quantities has to be positive intgers under 10000");
+            AllTestsTrue = false;
+        }
+        if (!isPositiveDouble(str5) || !isPositiveDouble(str6) || !isPositiveDouble(str7)){
+            output.setText("Vendor price, markup and discount must be positive double");
+            AllTestsTrue = false;
+        }
+        if (AllTestsTrue){
+            int skuNumber = Integer.parseInt(str1);
+            double vPrice = round(Double.parseDouble(str5),2);
+        }
+        
+    }//GEN-LAST:event_addFoodActionPerformed
+
+    private void skuNumsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_skuNumsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_skuNumsActionPerformed
     
     /**
      * @param args the command line arguments
@@ -315,21 +452,32 @@ public class GroceryInventory extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addFood;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel dash;
+    private javax.swing.JTextField discount;
+    private javax.swing.JLabel discountTitle;
     private javax.swing.JTextArea foodList;
     private javax.swing.JLabel foodTitle;
     private javax.swing.JTextArea foundItems;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField markup;
+    private javax.swing.JLabel markupTitle;
+    private javax.swing.JTextField minQuantity;
+    private javax.swing.JLabel minQuantityTitle;
     private javax.swing.JRadioButton name;
     private javax.swing.JTextField nameInput;
     private javax.swing.JTextField output;
+    private javax.swing.JTextField quantity;
+    private javax.swing.JLabel quantityTitle;
     private javax.swing.JButton query;
     private javax.swing.JButton read;
     private javax.swing.JRadioButton sku;
     private javax.swing.JTextField skuNums;
     private javax.swing.JComboBox<String> skuType;
     private javax.swing.JLabel title;
+    private javax.swing.JTextField vPrice;
+    private javax.swing.JLabel vPriceTitle;
     // End of variables declaration//GEN-END:variables
 }
