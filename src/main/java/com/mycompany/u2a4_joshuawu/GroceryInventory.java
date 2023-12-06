@@ -52,6 +52,26 @@ public class GroceryInventory extends javax.swing.JFrame {
     return outputAsArray;
     
   }
+  //This method will open the txt in write mode. This method has one string argument which represents the line which the user would like to add to the file. This method returns nothing.  
+  public static void writeToFile(String newLine){
+    
+    try {
+      
+      //To open the file in write mode we are using a three step process. 
+      //1. Create File Object
+      //2. Create FileOutputSteam Object which takes in File Object as the argument. 
+      //3. Create PrintWrite Object which takes in the FileOutputSteam Object as the argument. 
+      
+      FileWriter myWriter = new FileWriter("inventory.txt", false);
+     
+      myWriter.write(newLine);
+      myWriter.close();
+      
+    } catch (IOException e) {
+      System.out.println("An error occurred.");
+    }
+    
+    }
     public static boolean isPositiveInt(String str) { //checks if number is postive integer between 1 and 9999
      try {  
         Integer i = Integer.parseInt(str);  
@@ -112,6 +132,7 @@ public class GroceryInventory extends javax.swing.JFrame {
         discount = new javax.swing.JTextField();
         discountTitle = new javax.swing.JLabel();
         addFood = new javax.swing.JButton();
+        save = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -122,6 +143,7 @@ public class GroceryInventory extends javax.swing.JFrame {
             }
         });
 
+        foodList.setEditable(false);
         foodList.setColumns(20);
         foodList.setRows(5);
         jScrollPane1.setViewportView(foodList);
@@ -137,6 +159,8 @@ public class GroceryInventory extends javax.swing.JFrame {
 
     title.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
     title.setText("Grocery Store Inventory");
+
+    output.setEditable(false);
 
     skuType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "FRU", "VEG", "MEA" }));
     skuType.addActionListener(new java.awt.event.ActionListener() {
@@ -176,6 +200,7 @@ public class GroceryInventory extends javax.swing.JFrame {
     buttonGroup1.add(name);
     name.setText("by Name");
 
+    foundItems.setEditable(false);
     foundItems.setColumns(20);
     foundItems.setRows(5);
     jScrollPane2.setViewportView(foundItems);
@@ -194,6 +219,13 @@ public class GroceryInventory extends javax.swing.JFrame {
     addFood.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             addFoodActionPerformed(evt);
+        }
+    });
+
+    save.setText("Save to File");
+    save.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            saveActionPerformed(evt);
         }
     });
 
@@ -221,7 +253,6 @@ public class GroceryInventory extends javax.swing.JFrame {
                                 .addComponent(minQuantityTitle)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(minQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
-                            .addComponent(jScrollPane2)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(skuType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -230,19 +261,19 @@ public class GroceryInventory extends javax.swing.JFrame {
                                 .addComponent(skuNums, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(31, 31, 31)
                                 .addComponent(foodTitle)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(nameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(name, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(sku, javax.swing.GroupLayout.Alignment.TRAILING)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(nameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(addFood)
-                                    .addComponent(query))))))
+                            .addComponent(addFood)
+                            .addComponent(query)
+                            .addComponent(save)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane2)
+                        .addGap(123, 123, 123)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(name, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(sku, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addGroup(layout.createSequentialGroup()
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(vPriceTitle)
@@ -299,8 +330,9 @@ public class GroceryInventory extends javax.swing.JFrame {
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(discount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(discountTitle))
-            .addContainerGap(12, Short.MAX_VALUE))
+                .addComponent(discountTitle)
+                .addComponent(save))
+            .addContainerGap(11, Short.MAX_VALUE))
     );
 
     pack();
@@ -319,7 +351,7 @@ public class GroceryInventory extends javax.swing.JFrame {
                 Double.parseDouble(vars[8]),Double.parseDouble(vars[9])));
         foodList.append(itemList.get(itemList.size()-1).toString() + "\n");
         }
-
+        output.setText("Read from inventory.txt");
     }//GEN-LAST:event_readActionPerformed
 
     private void skuTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_skuTypeActionPerformed
@@ -384,7 +416,7 @@ public class GroceryInventory extends javax.swing.JFrame {
     private void addFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFoodActionPerformed
         String str1 = skuNums.getText(), str2 = nameInput.getText(), str3 = quantity.getText(),
                 str4 = minQuantity.getText(), str5 = vPrice.getText(), str6 = markup.getText(),
-                str7 = discount.getText(), str8 = skuType.getSelectedItem().toString();
+                str7 = discount.getText(), str8 = skuType.getSelectedItem().toString(); //read all string inputs from GUI
         boolean AllTestsTrue = true;
         if (str2.equals("") || str2.length()>20){
             output.setText("Name cannot be empty or over 20 characters");
@@ -406,8 +438,46 @@ public class GroceryInventory extends javax.swing.JFrame {
             AllTestsTrue = false;
         }
         if (AllTestsTrue){
-            int skuNumber = Integer.parseInt(str1);
-            double vPrice = round(Double.parseDouble(str5),2);
+            String skuName = str8 + "-" + str1, skuFullName;
+            int quantityInt = Integer.parseInt(str3);
+            int minQuantityInt = Integer.parseInt(str4);
+            double vPriceNum = round(Double.parseDouble(str5),2);
+            double markupNum = round(Double.parseDouble(str6),2);
+            double discountNum = round(Double.parseDouble(str7),2);
+            double regPrice = round(vPriceNum*(1+(markupNum/100)),2);
+            double curPrice = round(regPrice*(1-(discountNum/100)),2);
+            switch (str8){
+                case "FRU" ->{ 
+                    skuFullName = "FRUIT";
+                    itemList.add(Item.getFruNum()-1,
+                            new Item(skuName, str2, skuFullName, quantityInt, 
+                                    minQuantityInt, vPriceNum, markupNum, 
+                                            regPrice,discountNum, curPrice));
+                    skuNums.setText(df.format(Item.getFruNum()));
+                }
+                case "VEG" -> {
+                    skuFullName = "VEGETABLE";
+                    itemList.add(Item.getFruNum()+Item.getVegNum()-2,
+                            new Item(skuName, str2, skuFullName, quantityInt, 
+                                    minQuantityInt, vPriceNum, markupNum, 
+                                            regPrice,discountNum, curPrice));
+                    skuNums.setText(df.format(Item.getVegNum()));
+                }
+                case "MEA" -> {
+                    skuFullName = "MEAT";
+                    itemList.add(new Item(skuName, str2, skuFullName, quantityInt, 
+                                    minQuantityInt, vPriceNum, markupNum, 
+                                            regPrice,discountNum, curPrice));
+                    skuNums.setText(df.format(Item.getMeaNum()));
+                }                
+            }
+            foodList.setText("");
+                for (int i = 0; i<itemList.size();i++){
+                    foodList.append(itemList.get(i).toString()+"\n");
+                }
+            output.setText("Food added");
+           // int skuNumber = Integer.parseInt(str1);
+
         }
         
     }//GEN-LAST:event_addFoodActionPerformed
@@ -415,6 +485,15 @@ public class GroceryInventory extends javax.swing.JFrame {
     private void skuNumsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_skuNumsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_skuNumsActionPerformed
+
+    private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
+        String totalList = "";
+            for (int i = 0; i<itemList.size();i++){
+                totalList = totalList+itemList.get(i).toString()+"\n";
+            }
+        writeToFile(totalList);
+        output.setText("Written to inventory.txt");
+    }//GEN-LAST:event_saveActionPerformed
     
     /**
      * @param args the command line arguments
@@ -473,6 +552,7 @@ public class GroceryInventory extends javax.swing.JFrame {
     private javax.swing.JLabel quantityTitle;
     private javax.swing.JButton query;
     private javax.swing.JButton read;
+    private javax.swing.JButton save;
     private javax.swing.JRadioButton sku;
     private javax.swing.JTextField skuNums;
     private javax.swing.JComboBox<String> skuType;
