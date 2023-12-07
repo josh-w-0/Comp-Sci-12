@@ -5,7 +5,6 @@
 package com.mycompany.u2a4_joshuawu;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -13,8 +12,6 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 /**
  *
  * @author 335181541
@@ -135,6 +132,7 @@ public class GroceryInventory extends javax.swing.JFrame {
         save = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Grocery Inventory");
 
         read.setText("Read File");
         read.addActionListener(new java.awt.event.ActionListener() {
