@@ -24,7 +24,7 @@ public class GroceryInventory extends javax.swing.JFrame {
     public GroceryInventory() {
         initComponents();
     }
-  public static String[] readFromFile(){
+  public static String[] readFromFile(){ //reads from inventory.txt and outputs each line as an element of an array
     
     String outputAsString = "";
     String [] outputAsArray;
@@ -50,9 +50,9 @@ public class GroceryInventory extends javax.swing.JFrame {
     
   }
   //This method will open the txt in write mode. This method has one string argument which represents the line which the user would like to add to the file. This method returns nothing.  
-  public static void writeToFile(String newLine){
+  public static void writeToFile(String newLine){ //Writes the specified string into the file inventory.txt
     
-    try {
+    try { 
       
       //To open the file in write mode we are using a three step process. 
       //1. Create File Object
@@ -77,7 +77,7 @@ public class GroceryInventory extends javax.swing.JFrame {
         return false;  
      }  
     }
-    public static boolean isPositiveDouble(String str) { //checks if number is postive double
+    public static boolean isPositiveDouble(String str) { //checks if number is a postive double
      try {  
         Double i = Double.parseDouble(str);  
         return (i>0);
@@ -340,6 +340,7 @@ public class GroceryInventory extends javax.swing.JFrame {
     private void readActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_readActionPerformed
         String[] list = readFromFile();
         itemList.clear();
+        Item.clearItemNums();
         foodList.setText("");
         for (String str: list){
         String[] vars = str.split(",");
@@ -415,14 +416,14 @@ public class GroceryInventory extends javax.swing.JFrame {
         String str1 = skuNums.getText(), str2 = nameInput.getText(), str3 = quantity.getText(),
                 str4 = minQuantity.getText(), str5 = vPrice.getText(), str6 = markup.getText(),
                 str7 = discount.getText(), str8 = skuType.getSelectedItem().toString(); //read all string inputs from GUI
-        boolean AllTestsTrue = true;
+        boolean AllTestsTrue = true, skuTrue = true;
         if (str2.equals("") || str2.length()>20){
             output.setText("Name cannot be empty or over 20 characters");
             AllTestsTrue = false;
         }
         if (isPositiveInt(str3) && isPositiveInt(str4)){
             int quan = Integer.parseInt(str3), minQuan = Integer.parseInt(str4);
-            if (quan < minQuan){
+            if (quan <= minQuan){
                 output.setText("Quantity has to be larger than min quantity");
                 AllTestsTrue = false;
             }
@@ -446,36 +447,55 @@ public class GroceryInventory extends javax.swing.JFrame {
             double curPrice = round(regPrice*(1-(discountNum/100)),2);
             switch (str8){
                 case "FRU" ->{ 
+                    if (Integer.parseInt(str1)!= Item.getFruNum()){
+                        skuTrue = false;
+                    }
+                    else {
                     skuFullName = "FRUIT";
                     itemList.add(Item.getFruNum()-1,
                             new Item(skuName, str2, skuFullName, quantityInt, 
                                     minQuantityInt, vPriceNum, markupNum, 
                                             regPrice,discountNum, curPrice));
-                    skuNums.setText(df.format(Item.getFruNum()));
+                    skuNums.setText(df.format(Item.getFruNum()));    
+                    }
                 }
                 case "VEG" -> {
+                    if (Integer.parseInt(str1)!= Item.getVegNum()){
+                        skuTrue = false;
+                    }
+                    else {
                     skuFullName = "VEGETABLE";
-                    itemList.add(Item.getFruNum()+Item.getVegNum()-2,
+                    itemList.add(Item.getVegNum()-2,
                             new Item(skuName, str2, skuFullName, quantityInt, 
                                     minQuantityInt, vPriceNum, markupNum, 
                                             regPrice,discountNum, curPrice));
-                    skuNums.setText(df.format(Item.getVegNum()));
+                    skuNums.setText(df.format(Item.getVegNum()));    
+                    }
                 }
                 case "MEA" -> {
+                    if (Integer.parseInt(str1)!= Item.getMeaNum()){
+                        skuTrue = false;
+                    }
+                    else {
                     skuFullName = "MEAT";
                     itemList.add(new Item(skuName, str2, skuFullName, quantityInt, 
                                     minQuantityInt, vPriceNum, markupNum, 
                                             regPrice,discountNum, curPrice));
-                    skuNums.setText(df.format(Item.getMeaNum()));
-                }                
+                    skuNums.setText(df.format(Item.getMeaNum()));    
+                    }
+                }
             }
             foodList.setText("");
                 for (int i = 0; i<itemList.size();i++){
                     foodList.append(itemList.get(i).toString()+"\n");
                 }
-            output.setText("Food added");
-           // int skuNumber = Integer.parseInt(str1);
-
+            if (!skuTrue){
+                output.setText("SKU has to be 1 more than last specified category");
+            }
+            else{
+                output.setText("Food added");                
+            }
+            
         }
         
     }//GEN-LAST:event_addFoodActionPerformed
